@@ -9,8 +9,8 @@ number:
 date:
 consensus: true
 v: 3
-area: "Routing"
-workgroup: "Secure Inter-Domain Routing"
+area: ""
+workgroup: "SIDR Operations"
 keyword:
  - BGP Security
  - Inter-Domain Forwarding
