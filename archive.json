@@ -1,0 +1,83 @@
+{
+  "magic": "E!vIA5L86J2I",
+  "timestamp": "2025-01-09T00:41:18.855663+00:00",
+  "repo": "FCBGP/framework-of-fcbgp",
+  "labels": [
+    {
+      "name": "bug",
+      "description": "Something isn't working",
+      "color": "d73a4a"
+    },
+    {
+      "name": "documentation",
+      "description": "Improvements or additions to documentation",
+      "color": "0075ca"
+    },
+    {
+      "name": "duplicate",
+      "description": "This issue or pull request already exists",
+      "color": "cfd3d7"
+    },
+    {
+      "name": "enhancement",
+      "description": "New feature or request",
+      "color": "a2eeef"
+    },
+    {
+      "name": "good first issue",
+      "description": "Good for newcomers",
+      "color": "7057ff"
+    },
+    {
+      "name": "help wanted",
+      "description": "Extra attention is needed",
+      "color": "008672"
+    },
+    {
+      "name": "invalid",
+      "description": "This doesn't seem right",
+      "color": "e4e669"
+    },
+    {
+      "name": "question",
+      "description": "Further information is requested",
+      "color": "d876e3"
+    },
+    {
+      "name": "wontfix",
+      "description": "This will not be worked on",
+      "color": "ffffff"
+    }
+  ],
+  "issues": [],
+  "pulls": [
+    {
+      "number": 1,
+      "id": "PR_kwDONnR4js6HAWrm",
+      "title": "Update and rename draft-todo-yourname-protocol.md to draft-wang-sidro\u2026",
+      "url": "https://github.com/FCBGP/framework-of-fcbgp/pull/1",
+      "state": "MERGED",
+      "author": "FCBGP",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "\u2026ps-fcbgp-framework.md",
+      "createdAt": "2025-01-08T02:34:05Z",
+      "updatedAt": "2025-01-08T02:35:38Z",
+      "baseRepository": "FCBGP/framework-of-fcbgp",
+      "baseRefName": "main",
+      "baseRefOid": "7c0c71a5b8a52a0abcd4f0e707c647729edf4310",
+      "headRepository": "FCBGP/framework-of-fcbgp",
+      "headRefName": "version00",
+      "headRefOid": "b91a478a64b9b231ba64a12ae862e0f1bf730db3",
+      "closedAt": "2025-01-08T02:34:20Z",
+      "mergedAt": "2025-01-08T02:34:20Z",
+      "mergedBy": "FCBGP",
+      "mergeCommit": {
+        "oid": "86d386609b29e1fd4b153417de1dedaa855baacf"
+      },
+      "comments": [],
+      "reviews": []
+    }
+  ]
+}
