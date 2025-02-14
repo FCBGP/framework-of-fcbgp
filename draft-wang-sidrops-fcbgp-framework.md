@@ -48,7 +48,7 @@ author:
       email: jianping@cernet.edu.cn
   -
       fullname: Qian Zou 
-      org: ZGC
+      org: ZGCLAB
       city: Beijing
       country: China
       email: zouqian@zgclab.edu.cn
