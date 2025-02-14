@@ -41,13 +41,7 @@ author:
       country: China
       email: qli01@tsinghua.edu.cn
   -
-      fullname: Jianping Wu
-      org: Tsinghua University
-      city: Beijing
-      country: China
-      email: jianping@cernet.edu.cn
-  -
-      fullname: Qian Zou 
+      fullname: Qian Zou
       org: ZGCLAB
       city: Beijing
       country: China
