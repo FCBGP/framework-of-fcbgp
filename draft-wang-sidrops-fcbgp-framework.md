@@ -41,11 +41,11 @@ author:
       country: China
       email: qli01@tsinghua.edu.cn
   -
-      fullname: Qian Zou
-      org: ZGCLAB
+      fullname: Jianping Wu
+      org: Tsinghua University
       city: Beijing
       country: China
-      email: zouqian@zgclab.edu.cn
+      email: jianping@cernet.edu.cn
 
 normative:
   RFC4271: # TEST
@@ -59,16 +59,14 @@ informative:
 
 --- abstract
 
-This document defines a standard profile for the framework of Forwarding Commitment BGP (FC-BGP). Forwarding Commitment（FC）is a cryptographically signed code to certify an AS's routing intent on its directly connected hops. Based on FC, the goal of FC-BGP is to build a secure inter-domain system that can simultaneously authenticate AS_PATH attribute in BGP-UPDATE and validate network forwarding on the dataplane.
+This document descibes a security framework based on Forwarding Commitment BGP(FC-BGP). FC serves as a versatile and extensible verification primitive, seamlessly integrating with existing hop-by-hop forwarding architectures, using a chain-based verification mechanism to ensure both end-to-end authenticity and operational validity across Autonomous Systems (ASes).By combining topological information and operational actions, FC-based framework provides a foundation for robust inter-domain routing and forwarding security.
 
 
 --- middle
 
 # Introduction
 
-The fundamental cause of the path manipulation attacks in Internet inter-domain routing is that the de facto Border Gateway Protocol (BGP) {{RFC4271}} does not have built-in mechanisms to authenticate routing announcements. As a result, an adversary can announce virtually arbitrary paths to a prefix while the network cannot effectively verify the authenticity of the route announcements.
-
-In addition to the lack of control plane authentication, ensuring that the actual forwarding paths in the dataplane comply with the control plane decisions is also missing in today's inter-domain routing system. This fundamentally limits ASes from filtering unwanted traffic which takes an unauthorized AS path.
+The fundamental cause of the path manipulation attacks in Internet inter-domain routing is that the de facto Border Gateway Protocol (BGP) {{RFC4271}} does not have built-in mechanisms to authenticate routing announcements. As a result, an adversary can announce virtually arbitrary paths to a prefix while the network cannot effectively verify the authenticity of the route announcements.In addition to the lack of control plane authentication, ensuring that the actual forwarding paths in the dataplane comply with the control plane decisions is also missing in today's inter-domain routing system. This fundamentally limits ASes from filtering unwanted traffic which takes an unauthorized AS path.
 
 The representative schemes to secure inter-domain routing are RPKI {{RFC6480}} and BGPsec {{RFC8205}}. RPKI provides a foundation for validating the origins of BGP routes. Meanwhile, BGPsec directly builds the path authentication of BGP routes into the BGP path construction itself, where an AS is required to iteratively verify the signatures of each prior AS hop before extending the verification chain with its own approval. As a result, a single legacy or malicious AS can terminate the verification chain, preventing the downstream ASes from reinstating the verification process. This creates the well-known chicken-and-egg problem where the early adopters receive no deployment benefits which further limits new adoption.
 
@@ -76,16 +74,11 @@ Finally, due to the lack of practical protocols to check the consistency between
 
 This document specifies a framework named FC-BGP, an incrementally deployable security augment to the Internet inter-domain routing and forwarding. FC-BGP relies on the Resource Public Key Infrastructure (RPKI) certificates that attest to the allocation of AS number and IP address resources. To support FC-BGP, a BGP speaker needs to possess a private key associated with an RPKI router certificate {{RFC8209}} that corresponds to the BGP speaker's AS number.
 
+the hop-by-hop routing and forwarding mechanisms lack robust end-to-end security verification, making it challenging to identify and mitigate vulnerabilities in routing and forwarding.
+
 ## Requirements Language
 
 {::boilerplate bcp14-tagged}
-
-# Threat Model and Assumptions
-
-We assume that ASes participating in FC-BGP have access to RPKI, which stores authoritative information about the mapping between AS numbers and their owned IP prefixes, as well as ASes' public keys. Given the above assumptions, we consider the following adversary:
-
-1. On the control plane, the adversary can launch path manipulation attacks. This means that the adversary will try to manipulate the routing paths to victim ASes or prefixes by sending bogus BGP updates. For example, the adversary might try to reroute traffic to the victim ASes/prefixes through ASes that they control, in order to perform (encrypted) traffic analysis.
-2. On the dataplane, the adversary can spoof source addresses and send unwanted network traffic to the victim ASes prefixes.
 
 # Overview
 
