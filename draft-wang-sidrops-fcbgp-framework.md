@@ -115,20 +115,18 @@ FC provides flexible propagation methods within FC-based framework, which can be
 
 The uniqueness of FC-based framework lies in FCsemantic design, as shown in Figure 2, which encompasses two main types of information: topological information and operational information. This design makes FC not just a supplement to existing security mechanisms, but a fundamental primitive that supports construction of comprehensive security frameworks.
 
-Topological Information: 
-Topological information forms core of FC and is divided into two layers:
+Topological Information: Topological information forms core of FC and is divided into two layers:
+1. Link Statement: FC expresses physical connections between ASes through a Link Statement, which records direct physical links such as fiber connections or dedicated lines. This information provides direct evidence of validity of BGP peering relationships. If there is no physical connection between two ASes, they should not establish a BGP peering relationship. The Link Statement ensures objectivity and verifiability of physical connections, eliminating routing announcements based on false connections.
 
-Link Statement: FC expresses physical connections between ASes through a Link Statement, which records direct physical links such as fiber connections or dedicated lines. This information provides direct evidence of validity of BGP peering relationships. If there is no physical connection between two ASes, they should not establish a BGP peering relationship. The Link Statement ensures objectivity and verifiability of physical connections, eliminating routing announcements based on false connections.
-
-BGP Peering: Based on physical connection states, FC further captures logical BGP peering relationships established over these connections. By including previous hop, current AS, and next hop, FC describes inter-AS routing relationships in detail, enabling fine-grained, topology-based chained validation. This helps verify whether an AS's routing announcement aligns with its BGP peering relationship, ensuring that AS has genuinely learned route information from a neighboring AS, preventing route hijacking attacks.
+2. BGP Peering: Based on physical connection states, FC further captures logical BGP peering relationships established over these connections. By including previous hop, current AS, and next hop, FC describes inter-AS routing relationships in detail, enabling fine-grained, topology-based chained validation. This helps verify whether an AS's routing announcement aligns with its BGP peering relationship, ensuring that AS has genuinely learned route information from a neighboring AS, preventing route hijacking attacks.
 
 Operational Information: In addition to topological information, FC also encapsulates rich operational semantics that describe specific actions performed by an AS in routing and forwarding processes. It maily includes the following:
 
-Route Announcement: An AS announces its routing prefixes and path information to external peers. FC can represent these route announcements within directly connected hop range and provide verifiable commitments to global network, helping prevent route hijacking.
+1. Route Announcement: An AS announces its routing prefixes and path information to external peers. FC can represent these route announcements within directly connected hop range and provide verifiable commitments to global network, helping prevent route hijacking.
 
-Forwarding Path Designation: FC defines transmission path that packets should follow, which is critical for data plane security. By embedding forwarding path information, FC ensures that packets are forwarded as expected, preventing path manipulation or malicious redirection.
+2. Forwarding Path Designation: FC defines transmission path that packets should follow, which is critical for data plane security. By embedding forwarding path information, FC ensures that packets are forwarded as expected, preventing path manipulation or malicious redirection.
 
-Routing Policy: FC captures the policies of an AS regarding how to select and propagate paths, ensuring the consistency of routing policies and helping to identify and prevent route leaks and configuration errors.
+3. Routing Policy: FC captures the policies of an AS regarding how to select and propagate paths, ensuring the consistency of routing policies and helping to identify and prevent route leaks and configuration errors.
 
 By integrating topological and operational information, FC expresses behaviors ranging from AS level to global level. Each FC represents routing and forwarding actions that occur within directly connected hop range, and by linking multiple FCs, chained validation can be achieved across scope of multiple ASes. This mechanism ensures comprehensive verification of network operations, guaranteeing consistency and authenticity of information across entire network interaction range.
 
