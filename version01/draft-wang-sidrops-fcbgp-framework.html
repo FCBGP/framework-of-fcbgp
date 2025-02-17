@@ -1176,30 +1176,27 @@ svg :is([fill="white"], [fill^="#fff"]) {
             <p id="section-toc.1-1.3.1"><a href="#section-3" class="auto internal xref">3</a>.  <a href="#name-semantic-structure-of-fc" class="internal xref">Semantic Structure of FC</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4">
-            <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-bgp-path-validation" class="internal xref">BGP Path Validation</a></p>
+            <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-security-mechanisms-based-o" class="internal xref">Security Mechanisms Based on FC</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5">
-            <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-forwarding-validation" class="internal xref">Forwarding Validation</a></p>
-</li>
-          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6">
-            <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-security-considerations" class="internal xref">Security Considerations</a></p>
+            <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-security-considerations" class="internal xref">Security Considerations</a></p>
 <ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.1">
-                <p id="section-toc.1-1.6.2.1.1"><a href="#section-6.1" class="auto internal xref">6.1</a>.  <a href="#name-security-guarantees" class="internal xref">Security Guarantees</a></p>
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.1">
+                <p id="section-toc.1-1.5.2.1.1"><a href="#section-5.1" class="auto internal xref">5.1</a>.  <a href="#name-security-guarantees" class="internal xref">Security Guarantees</a></p>
 </li>
             </ul>
 </li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6">
+            <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-iana-considerations" class="internal xref">IANA Considerations</a></p>
+</li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7">
-            <p id="section-toc.1-1.7.1"><a href="#section-7" class="auto internal xref">7</a>.  <a href="#name-iana-considerations" class="internal xref">IANA Considerations</a></p>
+            <p id="section-toc.1-1.7.1"><a href="#section-7" class="auto internal xref">7</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8">
-            <p id="section-toc.1-1.8.1"><a href="#section-8" class="auto internal xref">8</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
+            <p id="section-toc.1-1.8.1"><a href="#appendix-A" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9">
-            <p id="section-toc.1-1.9.1"><a href="#appendix-A" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
-</li>
-          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10">
-            <p id="section-toc.1-1.10.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
+            <p id="section-toc.1-1.9.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
 </li>
         </ul>
 </nav>
@@ -1279,7 +1276,7 @@ appear in all capitals, as shown here.<a href="#section-1.1-1" class="pilcrow">�
 <a href="#name-semantic-structure-of-fc-2" class="selfRef">Semantic Structure of FC.</a>
         </figcaption></figure>
 </div>
-<p id="section-3-2">The uniqueness of FC-based framework lies in FCsemantic design, as shown in Figure 2, which encompasses two main types of information: topological information and operational information. This design makes FC not just a supplement to existing security mechanisms, but a fundamental primitive that supports construction of comprehensive security frameworks.<a href="#section-3-2" class="pilcrow">¶</a></p>
+<p id="section-3-2">The uniqueness of FC-based framework lies in FCsemantic design, as shown in <a href="#figure2" class="auto internal xref">Figure 2</a>, which encompasses two main types of information: topological information and operational information. This design makes FC not just a supplement to existing security mechanisms, but a fundamental primitive that supports construction of comprehensive security frameworks.<a href="#section-3-2" class="pilcrow">¶</a></p>
 <p id="section-3-3">Topological Information: Topological information forms core of FC and is divided into two layers:
 1. Link Statement: FC expresses physical connections between ASes through a Link Statement, which records direct physical links such as fiber connections or dedicated lines. This information provides direct evidence of validity of BGP peering relationships. If there is no physical connection between two ASes, they should not establish a BGP peering relationship. The Link Statement ensures objectivity and verifiability of physical connections, eliminating routing announcements based on false connections.<a href="#section-3-3" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-3-4">
@@ -1287,7 +1284,7 @@ appear in all capitals, as shown here.<a href="#section-1.1-1" class="pilcrow">�
           <p id="section-3-4.1.1">BGP Peering: Based on physical connection states, FC further captures logical BGP peering relationships established over these connections. By including previous hop, current AS, and next hop, FC describes inter-AS routing relationships in detail, enabling fine-grained, topology-based chained validation. This helps verify whether an AS's routing announcement aligns with its BGP peering relationship, ensuring that AS has genuinely learned route information from a neighboring AS, preventing route hijacking attacks.<a href="#section-3-4.1.1" class="pilcrow">¶</a></p>
 </li>
       </ol>
-<p id="section-3-5">Operational Information: In addition to topological information, FC also encapsulates rich operational semantics that describe specific actions performed by an AS in routing and forwarding processes. It maily includes the following:<a href="#section-3-5" class="pilcrow">¶</a></p>
+<p id="section-3-5">Operational Information: FC encapsulates rich operational semantics that describe specific actions performed by an AS in routing and forwarding processes. It maily includes the following:<a href="#section-3-5" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-3-6">
 <li id="section-3-6.1">
           <p id="section-3-6.1.1">Route Announcement: An AS announces its routing prefixes and path information to external peers. FC can represent these route announcements within directly connected hop range and provide verifiable commitments to global network, helping prevent route hijacking.<a href="#section-3-6.1.1" class="pilcrow">¶</a></p>
@@ -1304,64 +1301,70 @@ appear in all capitals, as shown here.<a href="#section-1.1-1" class="pilcrow">�
 <p id="section-3-9">FC is compatible not only with existing BGP protocols but also supports future routing validation mechanisms, such as RPKI. By leveraging FC as a foundational structure, it strengthens routing information and enhances security and reliability of network communication.<a href="#section-3-9" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="bgp-path-validation">
+<div id="security-mechanisms-based-on-fc">
 <section id="section-4">
-      <h2 id="name-bgp-path-validation">
-<a href="#section-4" class="section-number selfRef">4. </a><a href="#name-bgp-path-validation" class="section-name selfRef">BGP Path Validation</a>
+      <h2 id="name-security-mechanisms-based-o">
+<a href="#section-4" class="section-number selfRef">4. </a><a href="#name-security-mechanisms-based-o" class="section-name selfRef">Security Mechanisms Based on FC</a>
       </h2>
-<p id="section-4-1">Consider an illustrative example using the four-AS topology shown in <a href="#figure2" class="auto internal xref">Figure 2</a>. In this process, FC-BGP generates the corresponding FC and propagates to downstream ASes (e.g., adding it to the Path Attributes of the BGP updates), so that the receiving AS can validate the authenticity of the announcement. Suppose AS C receives a BGP announcement P(A): A-&gt;B-&gt;C from its neighbor B. If AS C decides to further advertise this path to its neighbor D based on its routing policy, it generates a FC F(C,D,P), propagates it  to AS D, and forwards the BGP update message to D.<a href="#section-4-1" class="pilcrow">¶</a></p>
-<p id="section-4-2">When AS D receives the route from C, it can determine the authenticity of the current AS path by verifying the list of FCs correctly reflects the AS path.<a href="#section-4-2" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="forwarding-validation">
-<section id="section-5">
-      <h2 id="name-forwarding-validation">
-<a href="#section-5" class="section-number selfRef">5. </a><a href="#name-forwarding-validation" class="section-name selfRef">Forwarding Validation</a>
-      </h2>
-<p id="section-5-1">AS shown in <a href="#figure2" class="auto internal xref">Figure 2</a>, to enable forwarding validation, ASes need to announce the traffic-FCs binding relationships. Specifically, suppose AS D confirms that the AS-path C-&gt;B-&gt;A for reaching prefix P(A) is legitimate, it binds the traffic (src:P(D),dst:P(A)) (where P(D) is the prefix owned by AS D) with the FC list F(C,D,P)-F(B,C,P)-F(A,B,P), and then publicly announces the binding relationship.<a href="#section-5-1" class="pilcrow">¶</a></p>
-<p id="section-5-2">Upon receiving the relationship, other ASes can build traffic filtering rules based on the relationship to enable forwarding validation on dataplane. For instance, by interpreting the binding relationship produced by AS D, AS C confirms that the traffic (src:P(D), dst:P(A)) shall be forwarded over the link L(CD), and AS B confirms that the traffic shall be forwarded on link L(BC). Network traffic violating these binding rules is considered to take unauthorized paths.<a href="#section-5-2" class="pilcrow">¶</a></p>
-<p id="section-5-3">To enable network-wide forwarding verification, these binding rules may be further broadcast globally (instead of just informing the ASes on the AS-path) so that off-path ASes can also discard unauthorized flows.<a href="#section-5-3" class="pilcrow">¶</a></p>
+<p id="section-4-1">By introducing universal verification primitive FC, FC-based security framework combines independence of hop-by-hop forwarding with end-to-end security verification capability. Below are some security mechanisms and application scenarios enabled by FC:<a href="#section-4-1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-4-2">
+<li id="section-4-2.1">
+          <p id="section-4-2.1.1">Routing Verification of Incremental Deployment: FC supports gradual deployment, allowing verification within networks that are not fully deployed. Through hop-by-hop and chain-based verification, FC adapts to partial deployment scenarios, reducing overhead of global verification.<a href="#section-4-2.1.1" class="pilcrow">¶</a></p>
+</li>
+        <li id="section-4-2.2">
+          <p id="section-4-2.2.1">Consistency Between Control Plane and Data Plane: By combining BGP peering relationships with physical link information, FC significantly enhances data plane security. For instance, embedding forwarding path information within FC ensures that packets are forwarded along expected routes, preventing path manipulation or malicious detours.<a href="#section-4-2.2.1" class="pilcrow">¶</a></p>
+</li>
+        <li id="section-4-2.3">
+          <p id="section-4-2.3.1">Route Leak Prevention and Policy Transparency: FC's operational information allows ASes to define and validate their routing policies, effectively preventing route leaks caused by misconfigurations or malicious policy violations.<a href="#section-4-2.3.1" class="pilcrow">¶</a></p>
+</li>
+        <li id="section-4-2.4">
+          <p id="section-4-2.4.1">Compatibility with Future Network Architectures: FC's universal structure remains compatible with both existing and future routing protocols, supporting emerging paradigms such as intent-based networking.<a href="#section-4-2.4.1" class="pilcrow">¶</a></p>
+</li>
+        <li id="section-4-2.5">
+          <p id="section-4-2.5.1">Dynamic Defense Mechanisms Against Emerging Attacks: FC's flexibility allows it to adjust to new attack scenarios, dynamically optimizing granularity of FC information to address evolving security challenges.<a href="#section-4-2.5.1" class="pilcrow">¶</a></p>
+</li>
+      </ol>
 </section>
 </div>
 <div id="security-considerations">
-<section id="section-6">
+<section id="section-5">
       <h2 id="name-security-considerations">
-<a href="#section-6" class="section-number selfRef">6. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
+<a href="#section-5" class="section-number selfRef">5. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
 <div id="security-guarantees">
-<section id="section-6.1">
+<section id="section-5.1">
         <h3 id="name-security-guarantees">
-<a href="#section-6.1" class="section-number selfRef">6.1. </a><a href="#name-security-guarantees" class="section-name selfRef">Security Guarantees</a>
+<a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-security-guarantees" class="section-name selfRef">Security Guarantees</a>
         </h3>
-<p id="section-6.1-1">When FC-BGP used in conjunction with origin validation, the following security guarantees can be achieved:<a href="#section-6.1-1" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-6.1-2">
-<li id="section-6.1-2.1">
-            <p id="section-6.1-2.1.1">The source AS in a route announcement is authorized.<a href="#section-6.1-2.1.1" class="pilcrow">¶</a></p>
+<p id="section-5.1-1">When FC-BGP used in conjunction with origin validation, the following security guarantees can be achieved:<a href="#section-5.1-1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-5.1-2">
+<li id="section-5.1-2.1">
+            <p id="section-5.1-2.1.1">The source AS in a route announcement is authorized.<a href="#section-5.1-2.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li id="section-6.1-2.2">
-            <p id="section-6.1-2.2.1">FC-BGP speakers on the AS-Path are authorized to propagate the route announcements.<a href="#section-6.1-2.2.1" class="pilcrow">¶</a></p>
+          <li id="section-5.1-2.2">
+            <p id="section-5.1-2.2.1">FC-BGP speakers on the AS-Path are authorized to propagate the route announcements.<a href="#section-5.1-2.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li id="section-6.1-2.3">
-            <p id="section-6.1-2.3.1">The forwarding path of packets is consistent with the routing path announced by the FC-BGP speakers.<a href="#section-6.1-2.3.1" class="pilcrow">¶</a></p>
+          <li id="section-5.1-2.3">
+            <p id="section-5.1-2.3.1">The forwarding path of packets is consistent with the routing path announced by the FC-BGP speakers.<a href="#section-5.1-2.3.1" class="pilcrow">¶</a></p>
 </li>
         </ol>
-<p id="section-6.1-3">FC-BGP is designed to enhance the security of control plane routing and dataplane forwarding in the Internet at the network layer. Specifically, FC-BGP allows an AS to independently prove its BGP routing decisions with publicly verifiable cryptography commitments, based on which any on-path AS can verify the authenticity of a BGP path; meanwhile FC-BGP ensures the consistency between the control plane and dataplane, i.e., the network traffic shall take the forwarding path that is consistent with the control plane routing decisions, or otherwise be discarded. More crucially, the above security guarantees offered by FC-BGP are not binary, i.e., secure or non-secure. Instead, the security benefits are strictly monotonically increasing as the deployment rate of FC-BGP (i.e., the percentage of ASes that are upgraded to support FC-BGP) increases.<a href="#section-6.1-3" class="pilcrow">¶</a></p>
+<p id="section-5.1-3">FC-BGP is designed to enhance the security of control plane routing and dataplane forwarding in the Internet at the network layer. Specifically, FC-BGP allows an AS to independently prove its BGP routing decisions with publicly verifiable cryptography commitments, based on which any on-path AS can verify the authenticity of a BGP path; meanwhile FC-BGP ensures the consistency between the control plane and dataplane, i.e., the network traffic shall take the forwarding path that is consistent with the control plane routing decisions, or otherwise be discarded. More crucially, the above security guarantees offered by FC-BGP are not binary, i.e., secure or non-secure. Instead, the security benefits are strictly monotonically increasing as the deployment rate of FC-BGP (i.e., the percentage of ASes that are upgraded to support FC-BGP) increases.<a href="#section-5.1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
 </div>
 <div id="iana-considerations">
-<section id="section-7">
+<section id="section-6">
       <h2 id="name-iana-considerations">
-<a href="#section-7" class="section-number selfRef">7. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
+<a href="#section-6" class="section-number selfRef">6. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
       </h2>
-<p id="section-7-1">This document has no IANA actions.<a href="#section-7-1" class="pilcrow">¶</a></p>
+<p id="section-6-1">This document has no IANA actions.<a href="#section-6-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-normative-references">
-<section id="section-8">
+<section id="section-7">
       <h2 id="name-normative-references">
-<a href="#section-8" class="section-number selfRef">8. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
+<a href="#section-7" class="section-number selfRef">7. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
       </h2>
 <dl class="references">
 <dt id="RFC2119">[RFC2119]</dt>
