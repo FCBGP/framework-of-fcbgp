@@ -138,25 +138,15 @@ FC is compatible not only with existing BGP protocols but also supports future r
 
 By introducing universal verification primitive FC, FC-based security framework combines independence of hop-by-hop forwarding with end-to-end security verification capability. Below are some security mechanisms and application scenarios enabled by FC:
 
-Routing Verification of Incremental Deployment
+1. Routing Verification of Incremental Deployment: FC supports gradual deployment, allowing verification within networks that are not fully deployed. Through hop-by-hop and chain-based verification, FC adapts to partial deployment scenarios, reducing overhead of global verification.
 
-FC supports gradual deployment, allowing verification within networks that are not fully deployed. Through hop-by-hop and chain-based verification, FC adapts to partial deployment scenarios, reducing overhead of global verification.
+2. Consistency Between Control Plane and Data Plane: By combining BGP peering relationships with physical link information, FC significantly enhances data plane security. For instance, embedding forwarding path information within FC ensures that packets are forwarded along expected routes, preventing path manipulation or malicious detours.
 
-Consistency Between Control Plane and Data Plane
+3. Route Leak Prevention and Policy Transparency: FC's operational information allows ASes to define and validate their routing policies, effectively preventing route leaks caused by misconfigurations or malicious policy violations.
 
-By combining BGP peering relationships with physical link information, FC significantly enhances data plane security. For instance, embedding forwarding path information within FC ensures that packets are forwarded along expected routes, preventing path manipulation or malicious detours.
+4. Compatibility with Future Network Architectures: FC's universal structure remains compatible with both existing and future routing protocols, supporting emerging paradigms such as intent-based networking.
 
-Route Leak Prevention and Policy Transparency
- 
-FC's operational information allows ASes to define and validate their routing policies, effectively preventing route leaks caused by misconfigurations or malicious policy violations.
-
-Compatibility with Future Network Architectures
-
-FC's universal structure remains compatible with both existing and future routing protocols, supporting emerging paradigms such as intent-based networking.
-
-Dynamic Defense Mechanisms Against Emerging Attacks
-
-FC's flexibility allows it to adjust to new attack scenarios, dynamically optimizing granularity of FC information to address evolving security challenges.
+5. Dynamic Defense Mechanisms Against Emerging Attacks: FC's flexibility allows it to adjust to new attack scenarios, dynamically optimizing granularity of FC information to address evolving security challenges.
 
 # Security Considerations
 
