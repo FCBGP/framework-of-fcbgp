@@ -86,7 +86,7 @@ This document specifies a security framework based on Forwarding Commitment BGP(
      |                  |                  |      FC(C)       |    
      |                  |                  |                  |    
      |                  |                  |                  |    
-   FC(A)              FC(B)              FC(C)              FC(D)                                                                                                                  
+   FC(A)              FC(B)              FC(C)              FC(D)                                                    
 ~~~~~~
 {: #figure1 title="Overview of FC-BGP."}
 
