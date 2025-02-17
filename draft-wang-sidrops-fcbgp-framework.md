@@ -79,22 +79,14 @@ This document specifies a security framework based on Forwarding Commitment BGP(
 # Overview
 
 ~~~~~~
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                 +----+---+         +----+---+         +----+---+         +--------+                                    
-                 |  AS A  +-------->+  AS B  +-------->+  AS C  +-------->+  AS D  |                                    
-                 +----+---+  FC(A)  +----+---+  FC(A)  +----+---+  FC(A)  +----+---+                                    
-                      ^                  ^      FC(B)       ^      FC(B)       ^                                        
-                      |                  |                  |      FC(C)       |                                        
-                      |                  |                  |                  |                                        
-                      |                  |                  |                  |                                        
-                    FC(A)              FC(B)              FC(C)              FC(D)                                      
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
++----+---+         +----+---+         +----+---+         +--------+
+|  AS A  +-------->+  AS B  +-------->+  AS C  +-------->+  AS D  |
++----+---+  FC(A)  +----+---+  FC(A)  +----+---+  FC(A)  +----+---+
+     ^                  ^      FC(B)       ^      FC(B)       ^    
+     |                  |                  |      FC(C)       |    
+     |                  |                  |                  |    
+     |                  |                  |                  |    
+   FC(A)              FC(B)              FC(C)              FC(D)                                                                                                                  
 ~~~~~~
 {: #figure1 title="Overview of FC-BGP."}
 
