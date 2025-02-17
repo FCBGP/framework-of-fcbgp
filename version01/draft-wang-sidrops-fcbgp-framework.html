@@ -1053,7 +1053,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Xu, et al.</td>
-<td class="center">Expires 20 August 2025</td>
+<td class="center">Expires 21 August 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1066,12 +1066,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-wang-sidrops-fcbgp-framework-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-02-16" class="published">16 February 2025</time>
+<time datetime="2025-02-17" class="published">17 February 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-08-20">20 August 2025</time></dd>
+<dd class="expires"><time datetime="2025-08-21">21 August 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1132,7 +1132,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 20 August 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 21 August 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1210,11 +1210,9 @@ svg :is([fill="white"], [fill^="#fff"]) {
       <h2 id="name-introduction">
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
-<p id="section-1-1">The fundamental cause of the path manipulation attacks in Internet inter-domain routing is that the de facto Border Gateway Protocol (BGP) <span>[<a href="#RFC4271" class="cite xref">RFC4271</a>]</span> does not have built-in mechanisms to authenticate routing announcements. As a result, an adversary can announce virtually arbitrary paths to a prefix while the network cannot effectively verify the authenticity of the route announcements.In addition to the lack of control plane authentication, ensuring that the actual forwarding paths in the dataplane comply with the control plane decisions is also missing in today's inter-domain routing system. This fundamentally limits ASes from filtering unwanted traffic which takes an unauthorized AS path.<a href="#section-1-1" class="pilcrow">¶</a></p>
-<p id="section-1-2">The representative schemes to secure inter-domain routing are RPKI <span>[<a href="#RFC6480" class="cite xref">RFC6480</a>]</span> and BGPsec <span>[<a href="#RFC8205" class="cite xref">RFC8205</a>]</span>. RPKI provides a foundation for validating the origins of BGP routes. Meanwhile, BGPsec directly builds the path authentication of BGP routes into the BGP path construction itself, where an AS is required to iteratively verify the signatures of each prior AS hop before extending the verification chain with its own approval. As a result, a single legacy or malicious AS can terminate the verification chain, preventing the downstream ASes from reinstating the verification process. This creates the well-known chicken-and-egg problem where the early adopters receive no deployment benefits which further limits new adoption.<a href="#section-1-2" class="pilcrow">¶</a></p>
-<p id="section-1-3">Finally, due to the lack of practical protocols to check the consistency between the dataplane forwarding and control-plane decisions, enforcing path authorization in the inter-domain forwarding has been not possible to date.<a href="#section-1-3" class="pilcrow">¶</a></p>
-<p id="section-1-4">This document specifies a framework named FC-BGP, an incrementally deployable security augment to the Internet inter-domain routing and forwarding. FC-BGP relies on the Resource Public Key Infrastructure (RPKI) certificates that attest to the allocation of AS number and IP address resources. To support FC-BGP, a BGP speaker needs to possess a private key associated with an RPKI router certificate <span>[<a href="#RFC8209" class="cite xref">RFC8209</a>]</span> that corresponds to the BGP speaker's AS number.<a href="#section-1-4" class="pilcrow">¶</a></p>
-<p id="section-1-5">the hop-by-hop routing and forwarding mechanisms lack robust end-to-end security verification, making it challenging to identify and mitigate vulnerabilities in routing and forwarding.<a href="#section-1-5" class="pilcrow">¶</a></p>
+<p id="section-1-1">The Internet's routing and forwarding system relies on hop-by-hop mechanism to achieve global connectivity, providing significant scalability and flexibility. However, this paradigm also introduces security challenges such as route hijacking and forwarding path manipulation. The root cause lies in the mismatch between verification capabilities and information propagation range, which prevents end-to-end security while maintaining the flexibility of hop-by-hop processing. Due to "indirect" nature of hop-by-hop mechanism, the authenticity and integrity of information cannot be verified.<a href="#section-1-1" class="pilcrow">¶</a></p>
+<p id="section-1-2">The existing representative mechanism BGPsec <span>[<a href="#RFC8205" class="cite xref">RFC8205</a>]</span> aims to provide end-to-end verification by propagating onion-style signatures in BGP update messages. Nevertheless, this design conflicts with Internet's distributed governance and hop-by-hop processing philosophy, resulting in substantial deployment hurdles. Resource Public Key Infrastructure (RPKI) <span>[<a href="#RFC6480" class="cite xref">RFC6480</a>]</span> is another key technology that reduces risk of route hijacking through cryptographic authentication of IP addresses and AS numbers, primarily by enabling Route Origin Validation (ROV). However, RPKI mainly focuses on verifying route origins rather than path security. Consequently, there is a lack of a unified and scalable verification mechanism.<a href="#section-1-2" class="pilcrow">¶</a></p>
+<p id="section-1-3">This document specifies a security framework based on Forwarding Commitment BGP(FC-BGP). FC is a cryptographic signature code employed to validate an AS's routing intentions at its directly connected hop points. The incrementally deployable framework based on a universal verification primitive FC, is designed to be compatible with existing hop-by-hop forwarding architectures, while overcoming the limitations of current verification capabilities. By utilizing chain-based validation, it establishes an end-to-end verification mechanism across Autonomous Systems (ASes), ensuring authenticity and operational validity of information across ASes. This strategy enables enhanced trust propagation across the global Internet while maintaining the existing hop-by-hop forwarding paradigm, providing a secure and compatible framework to address the security dilemmas caused by mismatch between verification scope and information propagation range.<a href="#section-1-3" class="pilcrow">¶</a></p>
 <div id="requirements-language">
 <section id="section-1.1">
         <h3 id="name-requirements-language">
