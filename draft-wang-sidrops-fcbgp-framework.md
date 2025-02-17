@@ -121,32 +121,6 @@ Upon receiving a BGP announcement, an upgraded AS generates a corresponding FC t
 
 # BGP Path Validation
 
-~~~~~~~~~~~~~~~
-                                            FClist:F(C,D,P)
-                          FClist:F(B,C,P)          F(B,C,P)
-       FClist:F(A,B,P)           F(A,B,P)          F(A,B,P)
-     | AS Path:A       |  AS Path:A-B     | AS Path:A-B-C    |
-     +---------------->+----------------->+----------------->|
-     |                 |                  |                  |
-     |                 |                  |                  |
-     |                 |                  |                  |
-+----+---+        +----+---+         +----+---+         +----+---+
-|  AS A  +--------+  AS B  +---------+  AS C  +---------+  AS D  |
-+----+---+        +----+---+         +----+---+         +----+---+
-     |                 |                  |                  |
-     |        F(C,D,P)-(src:P(D),dst:P(A))+<-----------------+
-     |                 |                  |                  |
-     |                 |                  |                  |
-     |                 |<-----------------+------------------+
-     |                 |      F(B,C,P)-(src:P(D),dst:P(A))   |
-     |                 |                  |                  |
-     |                 |                  |                  |
-     |<----------------+------------------+------------------+
-                   F(A,B,P)-(src:P(D),dst:P(A))
-~~~~~~~~~~~~~~~
-{: #figure2 title="Example of FC-BGP."}
-
-
 Consider an illustrative example using the four-AS topology shown in {{figure2}}. In this process, FC-BGP generates the corresponding FC and propagates to downstream ASes (e.g., adding it to the Path Attributes of the BGP updates), so that the receiving AS can validate the authenticity of the announcement. Suppose AS C receives a BGP announcement P(A): A->B->C from its neighbor B. If AS C decides to further advertise this path to its neighbor D based on its routing policy, it generates a FC F(C,D,P), propagates it  to AS D, and forwards the BGP update message to D.
 
 When AS D receives the route from C, it can determine the authenticity of the current AS path by verifying the list of FCs correctly reflects the AS path.
