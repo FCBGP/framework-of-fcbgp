@@ -101,15 +101,15 @@ FC provides flexible propagation methods within FC-based framework, which can be
 # Forwarding Commitment
 
 ~~~~~~~~~~~~~~~
-+--------------------+ +--------------------+ +--------------------+   \
-| Route Announcement | |   Fowarding Path   | |   Routing Policy   |... >Operation
-+--------------------+ +- ------------------+ +--------------------+   /
-+---------------------------------------------------------------------+\
-|                             BGP Peering                             | |
-+---------------------------------------------------------------------+  >Topology
-+---------------------------------------------------------------------+ |
-|                            Link Statement                           | |
-+---------------------------------------------------------------------+/
++------------------+ +------------------+ +-----------------+   \
+|Route Announcement| | Forwarding Path  | | Routing Policy  |... >Operation
++------------------+ +------------------+ +-----------------+   /
++--------------------------------------------------------------+\
+|                          BGP Peering                         | |
++--------------------------------------------------------------+  >Topology
++--------------------------------------------------------------+ |
+|                        Link Statement                        | |
++--------------------------------------------------------------+/
 ~~~~~~~~~~~~~~~
 {: #figure2 title="Example of FC-BGP."}
 FC-BGP enhances the security of inter-domain routing and forwarding by building a publicly verifiable view of the forwarding commitments. At a high level, a routing commitment (FC) of an AS is a cryptographically-signed primitive that binds the AS's routing decisions (e.g. willing to forward traffic for a prefix via one of its directly-connected hops). With this view, ASes are able to:
