@@ -1170,7 +1170,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2">
-            <p id="section-toc.1-1.2.1" class="keepWithNext"><a href="#section-2" class="auto internal xref">2</a>.  <a href="#name-concept-of-fc-based-framewo" class="internal xref">Concept of FC-based Framework</a></p>
+            <p id="section-toc.1-1.2.1" class="keepWithNext"><a href="#section-2" class="auto internal xref">2</a>.  <a href="#name-role-of-fc-in-fc-based-fram" class="internal xref">Role of FC in FC-based Framework</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3">
             <p id="section-toc.1-1.3.1"><a href="#section-3" class="auto internal xref">3</a>.  <a href="#name-forwarding-commitment" class="internal xref">Forwarding Commitment</a></p>
@@ -1226,14 +1226,15 @@ appear in all capitals, as shown here.<a href="#section-1.1-1" class="pilcrow">�
 </div>
 </section>
 </div>
-<div id="concept-of-fc-based-framework">
+<div id="role-of-fc-in-fc-based-framework">
 <section id="section-2">
-      <h2 id="name-concept-of-fc-based-framewo">
-<a href="#section-2" class="section-number selfRef">2. </a><a href="#name-concept-of-fc-based-framewo" class="section-name selfRef">Concept of FC-based Framework</a>
+      <h2 id="name-role-of-fc-in-fc-based-fram">
+<a href="#section-2" class="section-number selfRef">2. </a><a href="#name-role-of-fc-in-fc-based-fram" class="section-name selfRef">Role of FC in FC-based Framework</a>
       </h2>
-<span id="name-overview-of-fc-bgp"></span><div id="figure1">
+<p id="section-2-1">The key element of FC-BGP security framework is a transferable universal verification primitive-Forwarding Commitment (FC). The goal of FC is to achieve end-to-end verification within routing and forwarding system while maintaining compatibility with hop-by-hop processing paradigm.<a href="#section-2-1" class="pilcrow">¶</a></p>
+<span id="name-integration-of-fc-with-rout"></span><div id="figure1">
 <figure id="figure-1">
-        <div class="alignLeft art-text artwork" id="section-2-1.1">
+        <div class="alignLeft art-text artwork" id="section-2-2.1">
 <pre>
 +----+---+         +----+---+         +----+---+         +--------+
 |  AS A  +--------&gt;+  AS B  +--------&gt;+  AS C  +--------&gt;+  AS D  |
@@ -1246,33 +1247,12 @@ appear in all capitals, as shown here.<a href="#section-1.1-1" class="pilcrow">�
 </pre>
 </div>
 <figcaption><a href="#figure-1" class="selfRef">Figure 1</a>:
-<a href="#name-overview-of-fc-bgp" class="selfRef">Overview of FC-BGP.</a>
+<a href="#name-integration-of-fc-with-rout" class="selfRef">Integration of FC with Routing and Forwarding Path.</a>
         </figcaption></figure>
 </div>
-<p id="section-2-2">An overview of FC-BGP is shown in <a href="#figure1" class="auto internal xref">Figure 1</a>. The key primitive in FC-BGP is the Forwarding Commitment (FC), which is a publicly verifiable code that certifies an AS's routing intent on one of its directly connected hops, i.e., an FC indicates whether the AS is willing to carry traffic for a specific prefix over the hop.
-Upon receiving a BGP announcement, if AS A decides to accept the route and extends the path to its (selected) neighbor AS B, AS A commits its routing intent by generating a cryptographically-signed FC. Therefore, downstream on-path ASes (such as AS B) can validate the correctness of a BGP update by checking the FCs associated with the individual hops on the AS-path. Because the FCs are designed to be hop-specific and path-agnostic, a deployed AS can immediately certify its routing intent regardless of the deployment status of other ASes. This is fundamentally different from existing path-level BGP authentication protocol (e.g., BGPsec) where an on-path AS cannot approve any form of routing intent unless all on-path ASes are upgraded.<a href="#section-2-2" class="pilcrow">¶</a></p>
-<p id="section-2-3">FC-BGP is not bound to a specific FC propagation method and can use, but is not limited to, the following mechanisms:<a href="#section-2-3" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-2-4">
-<li id="section-2-4.1">
-          <p id="section-2-4.1.1">Extend BGP Update Message. Assign a new BGP Update Path Attribute to carry FCs.<a href="#section-2-4.1.1" class="pilcrow">¶</a></p>
-</li>
-        <li id="section-2-4.2">
-          <p id="section-2-4.2.1">Propose a new propagation protocol that guarantees consistent FC propagation.<a href="#section-2-4.2.1" class="pilcrow">¶</a></p>
-</li>
-        <li id="section-2-4.3">
-          <p id="section-2-4.3.1">Use existing network infrastructure, such as extending RPKI to add a new signed object to store FCs.<a href="#section-2-4.3.1" class="pilcrow">¶</a></p>
-</li>
-      </ol>
-<p id="section-2-5">Meanwhile, the flexibility of FCs further enables efficient forwarding validation on the dataplane. Specifically, because the FCs are self-proving, an AS can conceptually construct a certified AS-path using a list of consecutive per-hop FCs, and then binds its network traffic (identified by &lt; src-AS, dst-AS, prefix &gt;) to the path, such as &lt; AS B, AS A, P(B) &gt;, where P(B) is the prefix owned by AS B destined to AS A. This binding information essentially defines the authorized forwarding path for the traffic &lt; AS B, AS A, P(B) &gt;. Therefore, by advertising the binding information globally, both on-path and off-path ASes are aware of the desired forwarding paths so that they can collaboratively discard unwanted traffic that takes unauthorized paths.<a href="#section-2-5" class="pilcrow">¶</a></p>
-<p id="section-2-6">Similar to FC propagation, the propagation of binding messages in FC-BGP is not restricted to specific methods and can be, but is not limited to, the following:<a href="#section-2-6" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-2-7">
-<li id="section-2-7.1">
-          <p id="section-2-7.1.1">Propose a new propagation protocol that guarantees the consistency of binding messages.<a href="#section-2-7.1.1" class="pilcrow">¶</a></p>
-</li>
-        <li id="section-2-7.2">
-          <p id="section-2-7.2.1">Use existing network infrastructure, such as extending RPKI to add a new signed object to store binding messages.<a href="#section-2-7.2.1" class="pilcrow">¶</a></p>
-</li>
-      </ol>
+<p id="section-2-3">The integration of FC with Routing and Forwarding Path is shown in <a href="#figure1" class="auto internal xref">Figure 1</a>. During hop-by-hop processing, each AS generates an FC based on its routing intent. The FC provides a verifiable proof through cryptographic signatures, encapsulating routing behavior committed at directly connected hop, including information about previous hop AS, current AS, next hop AS and IP prefix, ensuring the authenticity and trustworthiness of provided routing information. Subsequent ASes receiving this information can verify FC from previous AS through a chain-based validation mechanism, ensuring authenticity and validity of information. The design of chain-based validation ensures security of information during hop-by-hop propagation, preventing tampering by intermediate nodes or inconsistencies in policies from compromising end-to-end security.<a href="#section-2-3" class="pilcrow">¶</a></p>
+<p id="section-2-4">FC based on hop-by-hop verification mechanism, enables chain-based validation across multiple ASes. Each FC generated by an AS can be independently verified without relying on updates from other ASes or cooperation from global network. It also supports end-to-end verification across the entire network. By constructing FC chains composed of multiple FCs between ASes, it can be used not only for individual hop-by-hop verification but also for building path chains that support global path validation, providing a foundation for end-to-end security.<a href="#section-2-4" class="pilcrow">¶</a></p>
+<p id="section-2-5">FC provides flexible propagation methods within FC-based framework, which can be achieved by extending existing BGP messages, proposing new propagation protocols, or leveraging existing network infrastructures such as RPKI for propagation. This flexibility allows FC to be compatible with existing network infrastructures and enables gradual deployment and adoption.<a href="#section-2-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="forwarding-commitment">
