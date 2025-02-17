@@ -116,6 +116,7 @@ FC provides flexible propagation methods within FC-based framework, which can be
 The uniqueness of FC-based framework lies in FCsemantic design, as shown in {{figure2}}, which encompasses two main types of information: topological information and operational information. This design makes FC not just a supplement to existing security mechanisms, but a fundamental primitive that supports construction of comprehensive security frameworks.
 
 Topological Information: Topological information forms core of FC and is divided into two layers:
+
 1. Link Statement: FC expresses physical connections between ASes through a Link Statement, which records direct physical links such as fiber connections or dedicated lines. This information provides direct evidence of validity of BGP peering relationships. If there is no physical connection between two ASes, they should not establish a BGP peering relationship. The Link Statement ensures objectivity and verifiability of physical connections, eliminating routing announcements based on false connections.
 
 2. BGP Peering: Based on physical connection states, FC further captures logical BGP peering relationships established over these connections. By including previous hop, current AS, and next hop, FC describes inter-AS routing relationships in detail, enabling fine-grained, topology-based chained validation. This helps verify whether an AS's routing announcement aligns with its BGP peering relationship, ensuring that AS has genuinely learned route information from a neighboring AS, preventing route hijacking attacks.
