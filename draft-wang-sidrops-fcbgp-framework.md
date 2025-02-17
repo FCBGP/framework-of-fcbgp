@@ -113,14 +113,14 @@ FC provides flexible propagation methods within FC-based framework, which can be
 ~~~~~~~~~~~~~~~
 {: #figure2 title="Semantic Structure of FC."}
 
-The uniqueness of FC-based framework lies in FCsemantic design, as shown in Figure 2, which encompasses two main types of information: topological information and operational information. This design makes FC not just a supplement to existing security mechanisms, but a fundamental primitive that supports construction of comprehensive security frameworks.
+The uniqueness of FC-based framework lies in FCsemantic design, as shown in {{figure2}}, which encompasses two main types of information: topological information and operational information. This design makes FC not just a supplement to existing security mechanisms, but a fundamental primitive that supports construction of comprehensive security frameworks.
 
 Topological Information: Topological information forms core of FC and is divided into two layers:
 1. Link Statement: FC expresses physical connections between ASes through a Link Statement, which records direct physical links such as fiber connections or dedicated lines. This information provides direct evidence of validity of BGP peering relationships. If there is no physical connection between two ASes, they should not establish a BGP peering relationship. The Link Statement ensures objectivity and verifiability of physical connections, eliminating routing announcements based on false connections.
 
 2. BGP Peering: Based on physical connection states, FC further captures logical BGP peering relationships established over these connections. By including previous hop, current AS, and next hop, FC describes inter-AS routing relationships in detail, enabling fine-grained, topology-based chained validation. This helps verify whether an AS's routing announcement aligns with its BGP peering relationship, ensuring that AS has genuinely learned route information from a neighboring AS, preventing route hijacking attacks.
 
-Operational Information: In addition to topological information, FC also encapsulates rich operational semantics that describe specific actions performed by an AS in routing and forwarding processes. It maily includes the following:
+Operational Information: FC encapsulates rich operational semantics that describe specific actions performed by an AS in routing and forwarding processes. It maily includes the following:
 
 1. Route Announcement: An AS announces its routing prefixes and path information to external peers. FC can represent these route announcements within directly connected hop range and provide verifiable commitments to global network, helping prevent route hijacking.
 
@@ -134,19 +134,24 @@ In chain-based validation, FC is linked into a chain using cryptographic signatu
 
 FC is compatible not only with existing BGP protocols but also supports future routing validation mechanisms, such as RPKI. By leveraging FC as a foundational structure, it strengthens routing information and enhances security and reliability of network communication.
 
-# BGP Path Validation
+# Security Mechanisms Based on FC
 
-Consider an illustrative example using the four-AS topology shown in {{figure2}}. In this process, FC-BGP generates the corresponding FC and propagates to downstream ASes (e.g., adding it to the Path Attributes of the BGP updates), so that the receiving AS can validate the authenticity of the announcement. Suppose AS C receives a BGP announcement P(A): A->B->C from its neighbor B. If AS C decides to further advertise this path to its neighbor D based on its routing policy, it generates a FC F(C,D,P), propagates it  to AS D, and forwards the BGP update message to D.
+By introducing universal verification primitive FC, FC-based security framework combines independence of hop-by-hop forwarding with end-to-end security verification capability. Below are some security mechanisms and application scenarios enabled by FC:
 
-When AS D receives the route from C, it can determine the authenticity of the current AS path by verifying the list of FCs correctly reflects the AS path.
+1. Routing Verification of Incremental Deployment 
+FC supports gradual deployment, allowing verification within networks that are not fully deployed. Through hop-by-hop and chain-based verification, FC adapts to partial deployment scenarios, reducing overhead of global verification.
 
-# Forwarding Validation
+2. Consistency Between Control Plane and Data Plane
+By combining BGP peering relationships with physical link information, FC significantly enhances data plane security. For instance, embedding forwarding path information within FC ensures that packets are forwarded along expected routes, preventing path manipulation or malicious detours.
 
-AS shown in {{figure2}}, to enable forwarding validation, ASes need to announce the traffic-FCs binding relationships. Specifically, suppose AS D confirms that the AS-path C->B->A for reaching prefix P(A) is legitimate, it binds the traffic (src:P(D),dst:P(A)) (where P(D) is the prefix owned by AS D) with the FC list F(C,D,P)-F(B,C,P)-F(A,B,P), and then publicly announces the binding relationship.
+3. Route Leak Prevention and Policy Transparency
+FC's operational information allows ASes to define and validate their routing policies, effectively preventing route leaks caused by misconfigurations or malicious policy violations.
 
-Upon receiving the relationship, other ASes can build traffic filtering rules based on the relationship to enable forwarding validation on dataplane. For instance, by interpreting the binding relationship produced by AS D, AS C confirms that the traffic (src:P(D), dst:P(A)) shall be forwarded over the link L(CD), and AS B confirms that the traffic shall be forwarded on link L(BC). Network traffic violating these binding rules is considered to take unauthorized paths.
+4. Compatibility with Future Network Architectures
+FC's universal structure remains compatible with both existing and future routing protocols, supporting emerging paradigms such as intent-based networking.
 
-To enable network-wide forwarding verification, these binding rules may be further broadcast globally (instead of just informing the ASes on the AS-path) so that off-path ASes can also discard unauthorized flows.
+5. Dynamic Defense Mechanisms Against Emerging Attacks
+FC's flexibility allows it to adjust to new attack scenarios, dynamically optimizing granularity of FC information to address evolving security challenges.
 
 # Security Considerations
 
