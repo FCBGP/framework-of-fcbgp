@@ -150,7 +150,7 @@ Table of Contents
 
        Figure 1: Integration of FC with Routing and Forwarding Path.
 
-   The integration of FC with Routing and Forwarding Path is shown in
+   The integration of FC with routing and forwarding path is shown in
    Figure 1.  During hop-by-hop processing, each AS generates an FC
    based on its routing intent.  The FC provides a verifiable proof
    through cryptographic signatures, encapsulating routing behavior
