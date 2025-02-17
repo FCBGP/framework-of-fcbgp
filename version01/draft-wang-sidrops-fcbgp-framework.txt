@@ -133,22 +133,14 @@ Table of Contents
 
 2.  Overview
 
-             |     1.BGP Announcement Path        |
-             +---------------------+------------->|
-   Control   |            ^        |              |
-   Plane     |    1.1     |        |    1.2       |
-             | Generation |        v Validation   |
-        +----+---+      +-+----------+       +----+---+
-        |        |      | Forwarding |       |        |
-        |  AS A  |      | Commitment |       |  AS B  |
-        |        |      |    (FC)    |       |        |
-        +----+---+      +----------+-+       +----+---+
-             |            ^        |              |
-    Data     |    2.2     |        |    2.1       |
-    Plane    | Validation |        |  Binding     |
-             |            |        v              |
-             |<-----------+-----------------------+
-             |         2.Forwarding Path          |
+   +----+---+         +----+---+         +----+---+         +--------+
+   |  AS A  +-------->+  AS B  +-------->+  AS C  +-------->+  AS D  |
+   +----+---+  FC(A)  +----+---+  FC(A)  +----+---+  FC(A)  +----+---+
+        ^                  ^      FC(B)       ^      FC(B)       ^
+        |                  |                  |      FC(C)       |
+        |                  |                  |                  |
+        |                  |                  |                  |
+      FC(A)              FC(B)              FC(C)              FC(D)
 
                        Figure 1: Overview of FC-BGP.
 
