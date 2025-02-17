@@ -71,7 +71,7 @@ Table of Contents
 
    1.  Introduction
      1.1.  Requirements Language
-   2.  Overview
+   2.  Concept of FC-based Framework
    3.  Forwarding Commitment
    4.  BGP Path Validation
    5.  Forwarding Validation
@@ -131,7 +131,7 @@ Table of Contents
    BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
    capitals, as shown here.
 
-2.  Overview
+2.  Concept of FC-based Framework
 
    +----+---+         +----+---+         +----+---+         +--------+
    |  AS A  +-------->+  AS B  +-------->+  AS C  +-------->+  AS D  |
