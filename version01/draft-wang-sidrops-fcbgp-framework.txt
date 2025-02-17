@@ -183,6 +183,18 @@ Table of Contents
 
 3.  Forwarding Commitment
 
++--------------------+ +--------------------+ +--------------------+   \
+| Route Announcement | |   Fowarding Path   | |   Routing Policy   |... >Operation
++--------------------+ +- ------------------+ +--------------------+   /
++---------------------------------------------------------------------+\
+|                             BGP Peering                             | |
++---------------------------------------------------------------------+  >Topology
++---------------------------------------------------------------------+ |
+|                            Link Statement                           | |
++---------------------------------------------------------------------+/
+
+                     Figure 2: Example of FC-BGP.
+
    FC-BGP enhances the security of inter-domain routing and forwarding
    by building a publicly verifiable view of the forwarding commitments.
    At a high level, a routing commitment (FC) of an AS is a
@@ -203,30 +215,6 @@ Table of Contents
    will be signed with the sender's private key for security.
 
 4.  BGP Path Validation
-
-                                               FClist:F(C,D,P)
-                             FClist:F(B,C,P)          F(B,C,P)
-          FClist:F(A,B,P)           F(A,B,P)          F(A,B,P)
-        | AS Path:A       |  AS Path:A-B     | AS Path:A-B-C    |
-        +---------------->+----------------->+----------------->|
-        |                 |                  |                  |
-        |                 |                  |                  |
-        |                 |                  |                  |
-   +----+---+        +----+---+         +----+---+         +----+---+
-   |  AS A  +--------+  AS B  +---------+  AS C  +---------+  AS D  |
-   +----+---+        +----+---+         +----+---+         +----+---+
-        |                 |                  |                  |
-        |        F(C,D,P)-(src:P(D),dst:P(A))+<-----------------+
-        |                 |                  |                  |
-        |                 |                  |                  |
-        |                 |<-----------------+------------------+
-        |                 |      F(B,C,P)-(src:P(D),dst:P(A))   |
-        |                 |                  |                  |
-        |                 |                  |                  |
-        |<----------------+------------------+------------------+
-                      F(A,B,P)-(src:P(D),dst:P(A))
-
-                        Figure 2: Example of FC-BGP.
 
    Consider an illustrative example using the four-AS topology shown in
    Figure 2.  In this process, FC-BGP generates the corresponding FC and
