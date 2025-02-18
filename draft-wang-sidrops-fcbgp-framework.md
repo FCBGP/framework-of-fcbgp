@@ -72,6 +72,8 @@ The existing representative mechanism BGPsec {{RFC8205}} aims to provide end-to-
 
 This document specifies a security framework based on Forwarding Commitment BGP(FC-BGP). FC is a cryptographic signature code employed to validate an AS's routing intentions at its directly connected hop points. The incrementally deployable framework based on a universal verification primitive FC, is designed to be compatible with existing hop-by-hop forwarding architectures, while overcoming the limitations of current verification capabilities. By utilizing chain-based validation, it establishes an end-to-end verification mechanism across Autonomous Systems (ASes), ensuring authenticity and operational validity of information across ASes. This strategy enables enhanced trust propagation across the global Internet while maintaining the existing hop-by-hop forwarding paradigm, providing a secure and compatible framework to address the security dilemmas caused by mismatch between verification scope and information propagation range.
 
+The framework based on FC-BGP relies on the Resource Public Key Infrastructure (RPKI) certificates that attest to allocation of AS number and IP address resources. To support FC-BGP, a BGP speaker needs to possess a private key associated with an RPKI router certificate {{RFC8209}} that corresponds to the BGP speaker's AS number.
+
 ## Requirements Language
 
 {::boilerplate bcp14-tagged}
@@ -153,13 +155,15 @@ By introducing universal verification primitive FC, FC-based security framework 
 
 ## Security Guarantees
 
-When FC-BGP used in conjunction with origin validation, the following security guarantees can be achieved:
+When the FC-based framework is used in conjunction with source validation mechanisms like RPKI, the following security guarantees are provided to FC-enabled network devices:
 
-1. The source AS in a route announcement is authorized.
-2. FC-BGP speakers on the AS-Path are authorized to propagate the route announcements.
-3. The forwarding path of packets is consistent with the routing path announced by the FC-BGP speakers.
+1. Source AS Validation: The source AS in a route announcement is authorized by IP address space holder in the RPKI, and is permitted to originate route advertisements for a specific prefix.
 
-FC-BGP is designed to enhance the security of control plane routing and dataplane forwarding in the Internet at the network layer. Specifically, FC-BGP allows an AS to independently prove its BGP routing decisions with publicly verifiable cryptography commitments, based on which any on-path AS can verify the authenticity of a BGP path; meanwhile FC-BGP ensures the consistency between the control plane and dataplane, i.e., the network traffic shall take the forwarding path that is consistent with the control plane routing decisions, or otherwise be discarded. More crucially, the above security guarantees offered by FC-BGP are not binary, i.e., secure or non-secure. Instead, the security benefits are strictly monotonically increasing as the deployment rate of FC-BGP (i.e., the percentage of ASes that are upgraded to support FC-BGP) increases.
+2. Hop-by-Hop Validation: Hop-by-hop propagation path is intentionally propagated by each AS based on its local policy. Each AS follows verification process specified by FC-based framework when validating and forwarding route advertisement.
+
+3. Path Integrity: Propagation path is not altered or bypassed maliciously during transmission. Each AS in path propagates path in expected sequence, preventing path forgery and path leaks.
+
+4. Final Destination Validation: Packet will eventually reach a legitimate destination AS, which has been authorized by IP address space holder for given prefix.
 
 # IANA Considerations
 
