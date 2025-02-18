@@ -161,9 +161,9 @@ When the FC-based framework is used in conjunction with source validation mechan
 
 2. Hop-by-Hop Validation: Hop-by-hop propagation path is intentionally propagated by each AS based on its local policy. Each AS follows verification process specified by FC-based framework when validating and forwarding route advertisement.
 
-3. Path Integrity: Propagation path is not altered or bypassed maliciously during transmission. Each AS in path propagates path in expected sequence, preventing path forgery and path leaks.
+3. Path Integrity: Propagation path is not altered or bypassed maliciously during transmission. Each AS in path propagates path in expected sequence, preventing path forgery and path leaks. Even in partially deployed network environments, the deployed portions of path can perform path validation according to FC verification process.
 
-4. Final Destination Validation: Packet will eventually reach a legitimate destination AS, which has been authorized by IP address space holder for given prefix.
+4. Final Destination Validation: Packet will follow the expected route declared by control plane, progressively making its way to the legitimate destination AS, which has been authorized by IP address space holder for given prefix.
 
 # IANA Considerations
 
