@@ -330,9 +330,13 @@ Table of Contents
    3.  Path Integrity: Propagation path is not altered or bypassed
        maliciously during transmission.  Each AS in path propagates path
        in expected sequence, preventing path forgery and path leaks.
+       Even in partially deployed network environments, the deployed
+       portions of path can perform path validation according to FC
+       verification process.
 
-   4.  Final Destination Validation: Packet will eventually reach a
-       legitimate destination AS, which has been authorized by IP
+   4.  Final Destination Validation: Packet will follow the expected
+       route declared by control plane, progressively making its way to
+       the legitimate destination AS, which has been authorized by IP
        address space holder for given prefix.
 
 6.  IANA Considerations
