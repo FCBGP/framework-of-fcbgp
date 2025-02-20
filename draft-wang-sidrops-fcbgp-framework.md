@@ -59,7 +59,7 @@ informative:
 
 --- abstract
 
-This document descibes a security framework based on Forwarding Commitment BGP(FC-BGP). FC serves as a versatile and extensible verification primitive, seamlessly integrating with existing hop-by-hop forwarding architectures, using a chain-based verification mechanism to ensure both end-to-end authenticity and operational validity across Autonomous Systems (ASes).By combining topological information and operational actions, FC-based framework provides a foundation for robust inter-domain routing and forwarding security.
+This document describes a security framework based on Forwarding Commitment BGP(FC-BGP). FC serves as a versatile and extensible verification primitive, seamlessly integrating with existing hop-by-hop forwarding architectures, using a chain-based verification mechanism to ensure both end-to-end authenticity and operational validity across Autonomous Systems (ASes).By combining topological information and operational actions, FC-based framework provides a foundation for robust inter-domain routing and forwarding security.
 
 
 --- middle
@@ -115,7 +115,7 @@ FC provides flexible propagation methods within FC-based framework, which can be
 ~~~~~~~~~~~~~~~
 {: #figure2 title="Semantic Structure of FC."}
 
-The uniqueness of FC-based framework lies in FCsemantic design, as shown in {{figure2}}, which encompasses two main types of information: topological information and operational information. This design makes FC not just a supplement to existing security mechanisms, but a fundamental primitive that supports construction of comprehensive security frameworks.
+The uniqueness of FC-based framework lies in FC semantic design, as shown in {{figure2}}, which encompasses two main types of information: topological information and operational information. This design makes FC not just a supplement to existing security mechanisms, but a fundamental primitive that supports construction of comprehensive security frameworks.
 
 Topological Information: Topological information forms core of FC and is divided into two layers:
 
@@ -123,7 +123,7 @@ Topological Information: Topological information forms core of FC and is divided
 
 2. BGP Peering: Based on physical connection states, FC further captures logical BGP peering relationships established over these connections. By including previous hop, current AS, and next hop, FC describes inter-AS routing relationships in detail, enabling fine-grained, topology-based chained validation. This helps verify whether an AS's routing announcement aligns with its BGP peering relationship, ensuring that AS has genuinely learned route information from a neighboring AS, preventing route hijacking attacks.
 
-Operational Information: FC encapsulates rich operational semantics that describe specific actions performed by an AS in routing and forwarding processes. It maily includes the following:
+Operational Information: FC encapsulates rich operational semantics that describe specific actions performed by an AS in routing and forwarding processes. It mainly includes the following:
 
 1. Route Announcement: An AS announces its routing prefixes and path information to external peers. FC can represent these route announcements within directly connected hop range and provide verifiable commitments to global network, helping prevent route hijacking.
 
