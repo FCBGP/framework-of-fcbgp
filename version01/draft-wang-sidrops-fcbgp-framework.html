@@ -11,15 +11,15 @@
 <meta content="Li Qi" name="author">
 <meta content="Jianping Wu" name="author">
 <meta content="
-       This document descibes a security framework based on Forwarding Commitment BGP(FC-BGP). FC serves as a versatile and extensible verification primitive, seamlessly integrating with existing hop-by-hop forwarding architectures, using a chain-based verification mechanism to ensure both end-to-end authenticity and operational validity across Autonomous Systems (ASes).By combining topological information and operational actions, FC-based framework provides a foundation for robust inter-domain routing and forwarding security. 
+       This document describes a security framework based on Forwarding Commitment BGP(FC-BGP). FC serves as a versatile and extensible verification primitive, seamlessly integrating with existing hop-by-hop forwarding architectures, using a chain-based verification mechanism to ensure both end-to-end authenticity and operational validity across Autonomous Systems (ASes).By combining topological information and operational actions, FC-based framework provides a foundation for robust inter-domain routing and forwarding security. 
     " name="description">
-<meta content="xml2rfc 3.26.0" name="generator">
+<meta content="xml2rfc 3.27.0" name="generator">
 <meta content="BGP Security" name="keyword">
 <meta content="Inter-Domain Forwarding" name="keyword">
 <meta content="draft-wang-sidrops-fcbgp-framework-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.26.0
-    Python 3.12.8
+  xml2rfc 3.27.0
+    Python 3.12.9
     ConfigArgParse 1.7
     google-i18n-address 3.1.1
     intervaltree 3.1.0
@@ -1053,7 +1053,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Xu, et al.</td>
-<td class="center">Expires 22 August 2025</td>
+<td class="center">Expires 24 August 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1066,12 +1066,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-wang-sidrops-fcbgp-framework-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-02-18" class="published">18 February 2025</time>
+<time datetime="2025-02-20" class="published">20 February 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-08-22">22 August 2025</time></dd>
+<dd class="expires"><time datetime="2025-08-24">24 August 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1100,7 +1100,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <h1 id="title">Framework of Forwarding Commitment BGP</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
-<p id="section-abstract-1">This document descibes a security framework based on Forwarding Commitment BGP(FC-BGP). FC serves as a versatile and extensible verification primitive, seamlessly integrating with existing hop-by-hop forwarding architectures, using a chain-based verification mechanism to ensure both end-to-end authenticity and operational validity across Autonomous Systems (ASes).By combining topological information and operational actions, FC-based framework provides a foundation for robust inter-domain routing and forwarding security.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+<p id="section-abstract-1">This document describes a security framework based on Forwarding Commitment BGP(FC-BGP). FC serves as a versatile and extensible verification primitive, seamlessly integrating with existing hop-by-hop forwarding architectures, using a chain-based verification mechanism to ensure both end-to-end authenticity and operational validity across Autonomous Systems (ASes).By combining topological information and operational actions, FC-based framework provides a foundation for robust inter-domain routing and forwarding security.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
       <h2 id="name-discussion-venues">
@@ -1132,7 +1132,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 22 August 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 24 August 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1277,7 +1277,7 @@ appear in all capitals, as shown here.<a href="#section-1.1-1" class="pilcrow">�
 <a href="#name-semantic-structure-of-fc-2" class="selfRef">Semantic Structure of FC.</a>
         </figcaption></figure>
 </div>
-<p id="section-3-2">The uniqueness of FC-based framework lies in FCsemantic design, as shown in <a href="#figure2" class="auto internal xref">Figure 2</a>, which encompasses two main types of information: topological information and operational information. This design makes FC not just a supplement to existing security mechanisms, but a fundamental primitive that supports construction of comprehensive security frameworks.<a href="#section-3-2" class="pilcrow">¶</a></p>
+<p id="section-3-2">The uniqueness of FC-based framework lies in FC semantic design, as shown in <a href="#figure2" class="auto internal xref">Figure 2</a>, which encompasses two main types of information: topological information and operational information. This design makes FC not just a supplement to existing security mechanisms, but a fundamental primitive that supports construction of comprehensive security frameworks.<a href="#section-3-2" class="pilcrow">¶</a></p>
 <p id="section-3-3">Topological Information: Topological information forms core of FC and is divided into two layers:<a href="#section-3-3" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-3-4">
 <li id="section-3-4.1">
@@ -1287,7 +1287,7 @@ appear in all capitals, as shown here.<a href="#section-1.1-1" class="pilcrow">�
           <p id="section-3-4.2.1">BGP Peering: Based on physical connection states, FC further captures logical BGP peering relationships established over these connections. By including previous hop, current AS, and next hop, FC describes inter-AS routing relationships in detail, enabling fine-grained, topology-based chained validation. This helps verify whether an AS's routing announcement aligns with its BGP peering relationship, ensuring that AS has genuinely learned route information from a neighboring AS, preventing route hijacking attacks.<a href="#section-3-4.2.1" class="pilcrow">¶</a></p>
 </li>
       </ol>
-<p id="section-3-5">Operational Information: FC encapsulates rich operational semantics that describe specific actions performed by an AS in routing and forwarding processes. It maily includes the following:<a href="#section-3-5" class="pilcrow">¶</a></p>
+<p id="section-3-5">Operational Information: FC encapsulates rich operational semantics that describe specific actions performed by an AS in routing and forwarding processes. It mainly includes the following:<a href="#section-3-5" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-3-6">
 <li id="section-3-6.1">
           <p id="section-3-6.1.1">Route Announcement: An AS announces its routing prefixes and path information to external peers. FC can represent these route announcements within directly connected hop range and provide verifiable commitments to global network, helping prevent route hijacking.<a href="#section-3-6.1.1" class="pilcrow">¶</a></p>
