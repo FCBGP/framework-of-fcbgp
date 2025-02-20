@@ -21,7 +21,7 @@ Abstract
    verification primitive, seamlessly integrating with existing hop-by-
    hop forwarding architectures, using a chain-based verification
    mechanism to ensure both end-to-end authenticity and operational
-   validity across Autonomous Systems (ASes).By combining topological
+   validity across Autonomous Systems (ASes).  By combining topological
    information and operational actions, FC-based framework provides a
    foundation for robust inter-domain routing and forwarding security.
 
@@ -83,8 +83,9 @@ Table of Contents
 
 1.  Introduction
 
-   The Internet's routing and forwarding system relies on hop-by-hop
-   mechanism to achieve global connectivity, providing significant
+   The Internet inter-domain routing relies on hop-by-hop mechanism of
+   Border Gateway Protocol(BGP) [RFC4271] to achieve inter-AS
+   cooperation and global connectivity, providing significant
    scalability and flexibility.  However, this paradigm also introduces
    security challenges such as route hijacking and forwarding path
    manipulation.  The root cause lies in the mismatch between
@@ -184,9 +185,11 @@ Table of Contents
    FC provides flexible propagation methods within FC-based framework,
    which can be achieved by extending existing BGP messages, proposing
    new propagation protocols, or leveraging existing network
-   infrastructures such as RPKI for propagation.  This flexibility
-   allows FC to be compatible with existing network infrastructures and
-   enables gradual deployment and adoption.
+   infrastructures such as RPKI for propagation.  This flexibility and
+   universality allows FC to be compatible with existing network
+   infrastructures, enabling gradual deployment and adoption.
+   Additionally, it can adapt to future network architectures,
+   supporting emerging paradigms such as intent-based networking.
 
 3.  Semantic Structure of FC
 
@@ -213,12 +216,12 @@ Table of Contents
    is divided into two layers:
 
    1.  Link Statement: FC expresses physical connections between ASes
-       through a Link Statement, which records direct physical links
+       through a link statement, which records direct physical links
        such as fiber connections or dedicated lines.  This information
        provides direct evidence of validity of BGP peering
        relationships.  If there is no physical connection between two
        ASes, they should not establish a BGP peering relationship.  The
-       Link Statement ensures objectivity and verifiability of physical
+       link statement ensures objectivity and verifiability of physical
        connections, eliminating routing announcements based on false
        connections.
 
@@ -248,10 +251,10 @@ Table of Contents
        are forwarded as expected, preventing path manipulation or
        malicious redirection.
 
-   3.  Routing Policy: FC captures the policies of an AS regarding how
-       to select and propagate paths, ensuring the consistency of
-       routing policies and helping to identify and prevent route leaks
-       and configuration errors.
+   3.  Routing Policy: FC captures policies of an AS regarding how to
+       select and propagate paths, ensuring the consistency of routing
+       policies and helping to identify and prevent route leaks and
+       configuration errors.
 
    By integrating topological and operational information, FC expresses
    behaviors ranging from AS level to global level.  Each FC represents
@@ -266,13 +269,10 @@ Table of Contents
    cryptographic signatures, with each AS verifying the previous FC
    before appending its own information.  This creates a trust chain
    that spans multiple ASes.  This mechanism ensures end-to-end
-   verification while maintaining decentralized nature of Internet.
-
-   FC is compatible not only with existing BGP protocols but also
-   supports future routing validation mechanisms, such as RPKI.  By
-   leveraging FC as a foundational structure, it strengthens routing
-   information and enhances security and reliability of network
-   communication.
+   verification while maintaining decentralized nature of Internet.  By
+   leveraging FC as a foundational structure, the FC-based framework
+   strengthens routing information and enhances security and reliability
+   of network communication.
 
 4.  Security Mechanisms Based on FC
 
@@ -299,12 +299,7 @@ Table of Contents
        policies, effectively preventing route leaks caused by
        misconfigurations or malicious policy violations.
 
-   4.  Compatibility with Future Network Architectures: FC's universal
-       structure remains compatible with both existing and future
-       routing protocols, supporting emerging paradigms such as intent-
-       based networking.
-
-   5.  Dynamic Defense Mechanisms Against Emerging Attacks: FC's
+   4.  Dynamic Defense Mechanisms Against Emerging Attacks: FC's
        flexibility allows it to adjust to new attack scenarios,
        dynamically optimizing granularity of FC information to address
        evolving security challenges.
