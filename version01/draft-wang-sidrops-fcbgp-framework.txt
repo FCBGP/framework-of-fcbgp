@@ -17,7 +17,7 @@ Expires: 24 August 2025                                            L. Qi
 Abstract
 
    This document describes a security framework based on Forwarding
-   Commitment BGP(FC-BGP).  FC serves as a versatile and extensible
+   Commitment BGP (FC-BGP).  FC serves as a versatile and extensible
    verification primitive, seamlessly integrating with existing hop-by-
    hop forwarding architectures, using a chain-based verification
    mechanism to ensure both end-to-end authenticity and operational
@@ -84,7 +84,7 @@ Table of Contents
 1.  Introduction
 
    The Internet inter-domain routing relies on hop-by-hop mechanism of
-   Border Gateway Protocol(BGP) [RFC4271] to achieve inter-AS
+   Border Gateway Protocol (BGP) [RFC4271] to achieve inter-AS
    cooperation and global connectivity, providing significant
    scalability and flexibility.  However, this paradigm also introduces
    security challenges such as route hijacking and forwarding path
@@ -108,7 +108,7 @@ Table of Contents
    there is a lack of a unified and scalable verification mechanism.
 
    This document specifies a security framework based on Forwarding
-   Commitment BGP(FC-BGP).  FC is a cryptographic signature code
+   Commitment BGP (FC-BGP).  FC is a cryptographic signature code
    employed to validate an AS's routing intentions at its directly
    connected hop points.  The incrementally deployable framework based
    on a universal verification primitive FC, is designed to be
