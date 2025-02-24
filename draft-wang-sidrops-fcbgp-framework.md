@@ -1,7 +1,7 @@
 ---
 title: "Framework of Forwarding Commitment BGP"
 abbrev: "fcbgp-framework"
-category: std
+category: info
 
 docname: draft-wang-sidrops-fcbgp-framework-latest
 submissiontype: IETF  # also: "independent", "IAB", or "IRTF"
@@ -151,15 +151,7 @@ By introducing universal verification primitive FC, FC-based security framework 
 
 ## Security Guarantees
 
-When the FC-based framework is used in conjunction with source validation mechanisms like RPKI, the following security guarantees are provided to FC-enabled network devices:
-
-1. Source AS Validation: The source AS in a route announcement is authorized by IP address space holder in the RPKI, and is permitted to originate route advertisements for a specific prefix.
-
-2. Hop-by-Hop Validation: Hop-by-hop propagation path is intentionally propagated by each AS based on its local policy. Each AS follows verification process specified by FC-based framework when validating and forwarding route advertisement.
-
-3. Path Integrity: Propagation path is not altered or bypassed maliciously during transmission. Each AS in path propagates path in expected sequence, preventing path forgery and path leaks. Even in partially deployed network environments, the deployed portions of path can perform path validation according to FC verification process.
-
-4. Final Destination Validation: Packet will follow the expected route declared by control plane, progressively making its way to the legitimate destination AS, which has been authorized by IP address space holder for given prefix.
+This document has no security risks to consider.
 
 # IANA Considerations
 
