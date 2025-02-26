@@ -5,10 +5,10 @@
 SIDR Operations                                                    K. Xu
 Internet-Draft                                                   X. Wang
 Intended status: Informational                                    Z. liu
-Expires: 28 August 2025                                            L. Qi
+Expires: 30 August 2025                                            L. Qi
                                                                    J. Wu
                                                      Tsinghua University
-                                                        24 February 2025
+                                                        26 February 2025
 
 
                  Framework of Forwarding Commitment BGP
@@ -51,7 +51,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 28 August 2025.
+   This Internet-Draft will expire on 30 August 2025.
 
 Copyright Notice
 
@@ -75,7 +75,6 @@ Table of Contents
    3.  Semantic Structure of FC
    4.  Security Mechanisms Based on FC
    5.  Security Considerations
-     5.1.  Security Guarantees
    6.  IANA Considerations
    7.  Normative References
    Acknowledgments
@@ -305,8 +304,6 @@ Table of Contents
        evolving security challenges.
 
 5.  Security Considerations
-
-5.1.  Security Guarantees
 
    This document has no security risks to consider.
 
