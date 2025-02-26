@@ -149,8 +149,6 @@ By introducing universal verification primitive FC, FC-based security framework 
 
 # Security Considerations
 
-## Security Guarantees
-
 This document has no security risks to consider.
 
 # IANA Considerations
