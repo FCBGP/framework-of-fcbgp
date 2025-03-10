@@ -1,7 +1,7 @@
 ---
 title: "Framework of Forwarding Commitment BGP"
 abbrev: "fcbgp-framework"
-category: std
+category: info
 
 docname: draft-wang-sidrops-fcbgp-framework-latest
 submissiontype: IETF  # also: "independent", "IAB", or "IRTF"
@@ -46,6 +46,12 @@ author:
       city: Beijing
       country: China
       email: jianping@cernet.edu.cn
+  -
+      fullname: Qian Zou
+      org: Zhongguancun Laboratory
+      city: Beijing
+      country: China
+      email: zouqian@zgclab.edu.cn
 
 normative:
   RFC4271: # TEST
@@ -59,135 +65,97 @@ informative:
 
 --- abstract
 
-This document defines a standard profile for the framework of Forwarding Commitment BGP (FC-BGP). Forwarding Commitment（FC）is a cryptographically signed code to certify an AS's routing intent on its directly connected hops. Based on FC, the goal of FC-BGP is to build a secure inter-domain system that can simultaneously authenticate AS_PATH attribute in BGP-UPDATE and validate network forwarding on the dataplane.
+This document describes a security framework based on Forwarding Commitment BGP (FC-BGP). FC serves as a versatile and extensible verification primitive, seamlessly integrating with existing hop-by-hop forwarding architectures, using a chain-based verification mechanism to ensure both end-to-end authenticity and operational validity across Autonomous Systems (ASes). By combining topological information and operational actions, FC-based framework provides a foundation for robust inter-domain routing and forwarding security.
 
 
 --- middle
 
 # Introduction
 
-The fundamental cause of the path manipulation attacks in Internet inter-domain routing is that the de facto Border Gateway Protocol (BGP) {{RFC4271}} does not have built-in mechanisms to authenticate routing announcements. As a result, an adversary can announce virtually arbitrary paths to a prefix while the network cannot effectively verify the authenticity of the route announcements.
+The Internet inter-domain routing relies on hop-by-hop mechanism of Border Gateway Protocol (BGP) {{RFC4271}} to achieve inter-AS cooperation and global connectivity, providing significant scalability and flexibility. However, this paradigm also introduces security challenges such as route hijacking and forwarding path manipulation. The root cause lies in the mismatch between verification capabilities and information propagation range, which prevents end-to-end security while maintaining the flexibility of hop-by-hop processing. Due to "indirect" nature of hop-by-hop mechanism, the authenticity and integrity of information cannot be verified.
 
-In addition to the lack of control plane authentication, ensuring that the actual forwarding paths in the dataplane comply with the control plane decisions is also missing in today's inter-domain routing system. This fundamentally limits ASes from filtering unwanted traffic which takes an unauthorized AS path.
+The existing representative mechanism BGPsec {{RFC8205}} aims to provide end-to-end verification by propagating onion-style signatures in BGP update messages. Nevertheless, this design conflicts with Internet's distributed governance and hop-by-hop processing philosophy, resulting in substantial deployment hurdles. Resource Public Key Infrastructure (RPKI) {{RFC6480}} is another key technology that reduces risk of route hijacking through cryptographic authentication of IP addresses and AS numbers, primarily by enabling Route Origin Validation (ROV). However, RPKI mainly focuses on verifying route origins rather than path security. Consequently, there is a lack of a unified and scalable verification mechanism.
 
-The representative schemes to secure inter-domain routing are RPKI {{RFC6480}} and BGPsec {{RFC8205}}. RPKI provides a foundation for validating the origins of BGP routes. Meanwhile, BGPsec directly builds the path authentication of BGP routes into the BGP path construction itself, where an AS is required to iteratively verify the signatures of each prior AS hop before extending the verification chain with its own approval. As a result, a single legacy or malicious AS can terminate the verification chain, preventing the downstream ASes from reinstating the verification process. This creates the well-known chicken-and-egg problem where the early adopters receive no deployment benefits which further limits new adoption.
+This document specifies a security framework based on Forwarding Commitment BGP (FC-BGP). FC is a cryptographic signature code employed to validate an AS's routing intentions at its directly connected hop points. The incrementally deployable framework based on a universal verification primitive FC, is designed to be compatible with existing hop-by-hop forwarding architectures, while overcoming the limitations of current verification capabilities. By utilizing chain-based validation, it establishes an end-to-end verification mechanism across Autonomous Systems (ASes), ensuring authenticity and operational validity of information across ASes. This strategy enables enhanced trust propagation across the global Internet while maintaining the existing hop-by-hop forwarding paradigm, providing a secure and compatible framework to address the security dilemmas caused by mismatch between verification scope and information propagation range.
 
-Finally, due to the lack of practical protocols to check the consistency between the dataplane forwarding and control-plane decisions, enforcing path authorization in the inter-domain forwarding has been not possible to date.
-
-This document specifies a framework named FC-BGP, an incrementally deployable security augment to the Internet inter-domain routing and forwarding. FC-BGP relies on the Resource Public Key Infrastructure (RPKI) certificates that attest to the allocation of AS number and IP address resources. To support FC-BGP, a BGP speaker needs to possess a private key associated with an RPKI router certificate {{RFC8209}} that corresponds to the BGP speaker's AS number.
+The framework based on FC-BGP relies on the Resource Public Key Infrastructure (RPKI) certificates that attest to allocation of AS number and IP address resources. To support FC-BGP, a BGP speaker needs to possess a private key associated with an RPKI router certificate {{RFC8209}} that corresponds to the BGP speaker's AS number.
 
 ## Requirements Language
 
 {::boilerplate bcp14-tagged}
 
-# Threat Model and Assumptions
+# Role of FC in FC-based Framework
 
-We assume that ASes participating in FC-BGP have access to RPKI, which stores authoritative information about the mapping between AS numbers and their owned IP prefixes, as well as ASes' public keys. Given the above assumptions, we consider the following adversary:
-
-1. On the control plane, the adversary can launch path manipulation attacks. This means that the adversary will try to manipulate the routing paths to victim ASes or prefixes by sending bogus BGP updates. For example, the adversary might try to reroute traffic to the victim ASes/prefixes through ASes that they control, in order to perform (encrypted) traffic analysis.
-2. On the dataplane, the adversary can spoof source addresses and send unwanted network traffic to the victim ASes prefixes.
-
-# Overview
+The key element of FC-BGP security framework is a transferable universal verification primitive-Forwarding Commitment (FC). The goal of FC is to achieve end-to-end verification within routing and forwarding system while maintaining compatibility with hop-by-hop processing paradigm.
 
 ~~~~~~
-          |     1.BGP Announcement Path        |
-          +---------------------+------------->|
-Control   |            ^        |              |
-Plane     |    1.1     |        |    1.2       |
-          | Generation |        v Validation   |
-     +----+---+      +-+----------+       +----+---+
-     |        |      | Forwarding |       |        |
-     |  AS A  |      | Commitment |       |  AS B  |
-     |        |      |    (FC)    |       |        |
-     +----+---+      +----------+-+       +----+---+
-          |            ^        |              |
- Data     |    2.2     |        |    2.1       |
- Plane    | Validation |        |  Binding     |
-          |            |        v              |
-          |<-----------+-----------------------+
-          |         2.Forwarding Path          |
++----+---+         +----+---+         +----+---+         +--------+
+|  AS A  +-------->+  AS B  +-------->+  AS C  +-------->+  AS D  |
++----+---+  FC(A)  +----+---+  FC(A)  +----+---+  FC(A)  +----+---+
+     ^                  ^      FC(B)       ^      FC(B)       ^
+     |                  |                  |      FC(C)       |
+     |                  |                  |                  |
+     |                  |                  |                  |
+   FC(A)              FC(B)              FC(C)              FC(D)
 ~~~~~~
-{: #figure1 title="Overview of FC-BGP."}
+{: #figure1 title="Integration of FC with Routing and Forwarding Path."}
 
+The integration of FC with routing and forwarding path is shown in {{figure1}}. During hop-by-hop processing, each AS generates an FC based on its routing intent. The FC provides a verifiable proof through cryptographic signatures, encapsulating routing behavior committed at directly connected hop, including information about previous hop AS, current AS, next hop AS and IP prefix, ensuring the authenticity and trustworthiness of provided routing information. Subsequent AS receiving this information can verify FC from previous AS through a chain-based validation mechanism before appending its own FC information, ensuring authenticity and validity of information. The design of chain-based validation ensures security of information during hop-by-hop propagation, preventing tampering by intermediate nodes or inconsistencies in policies from compromising end-to-end security.
 
+FC based on hop-by-hop verification mechanism, enables chain-based validation across multiple ASes. Each FC generated by an AS can be independently verified without relying on updates from other ASes or cooperation from global network. It also supports end-to-end verification across the entire network. By constructing FC chains composed of multiple FCs between ASes, it can be used not only for individual hop-by-hop verification but also for building path chains that support global path validation, providing a foundation for end-to-end security.
 
-An overview of FC-BGP is shown in {{figure1}}. The key primitive in FC-BGP is the Forwarding Commitment (FC), which is a publicly verifiable code that certifies an AS's routing intent on one of its directly connected hops, i.e., an FC indicates whether the AS is willing to carry traffic for a specific prefix over the hop.
-Upon receiving a BGP announcement, if AS A decides to accept the route and extends the path to its (selected) neighbor AS B, AS A commits its routing intent by generating a cryptographically-signed FC. Therefore, downstream on-path ASes (such as AS B) can validate the correctness of a BGP update by checking the FCs associated with the individual hops on the AS-path. Because the FCs are designed to be hop-specific and path-agnostic, a deployed AS can immediately certify its routing intent regardless of the deployment status of other ASes. This is fundamentally different from existing path-level BGP authentication protocol (e.g., BGPsec) where an on-path AS cannot approve any form of routing intent unless all on-path ASes are upgraded.
+FC provides flexible propagation methods within FC-based framework, which can be achieved by extending existing BGP messages, proposing new propagation protocols, or leveraging existing network infrastructures such as RPKI for propagation. This flexibility and universality allows FC to be compatible with existing network infrastructures, enabling gradual deployment and adoption. Additionally, it can adapt to future network architectures, supporting emerging paradigms such as intent-based networking.
 
-FC-BGP is not bound to a specific FC propagation method and can use, but is not limited to, the following mechanisms:
-
-1. Extend BGP Update Message. Assign a new BGP Update Path Attribute to carry FCs.
-2. Propose a new propagation protocol that guarantees consistent FC propagation.
-3. Use existing network infrastructure, such as extending RPKI to add a new signed object to store FCs.
-
-Meanwhile, the flexibility of FCs further enables efficient forwarding validation on the dataplane. Specifically, because the FCs are self-proving, an AS can conceptually construct a certified AS-path using a list of consecutive per-hop FCs, and then binds its network traffic (identified by < src-AS, dst-AS, prefix >) to the path, such as < AS B, AS A, P(B) >, where P(B) is the prefix owned by AS B destined to AS A. This binding information essentially defines the authorized forwarding path for the traffic < AS B, AS A, P(B) >. Therefore, by advertising the binding information globally, both on-path and off-path ASes are aware of the desired forwarding paths so that they can collaboratively discard unwanted traffic that takes unauthorized paths.
-
-Similar to FC propagation, the propagation of binding messages in FC-BGP is not restricted to specific methods and can be, but is not limited to, the following:
-
-1. Propose a new propagation protocol that guarantees the consistency of binding messages.
-2. Use existing network infrastructure, such as extending RPKI to add a new signed object to store binding messages.
-
-
-# Forwarding Commitment
-
-FC-BGP enhances the security of inter-domain routing and forwarding by building a publicly verifiable view of the forwarding commitments. At a high level, a routing commitment (FC) of an AS is a cryptographically-signed primitive that binds the AS's routing decisions (e.g. willing to forward traffic for a prefix via one of its directly-connected hops). With this view, ASes are able to:
-
-1. Evaluate the authenticity (or security) of the control plane BGP announcements based on committed routing decisions from relevant ASes.
-2. Ensure that the dataplane forwarding is consistent with the routing decisions committed in the control plane.
-
-Upon receiving a BGP announcement, an upgraded AS generates a corresponding FC that contains the core information of the announcement, such as prefixes, sending AS, and receiving AS, and will be signed with the sender's private key for security.
-
-# BGP Path Validation
+# Semantic Structure of FC
 
 ~~~~~~~~~~~~~~~
-                                            FClist:F(C,D,P)
-                          FClist:F(B,C,P)          F(B,C,P)
-       FClist:F(A,B,P)           F(A,B,P)          F(A,B,P)
-     | AS Path:A       |  AS Path:A-B     | AS Path:A-B-C    |
-     +---------------->+----------------->+----------------->|
-     |                 |                  |                  |
-     |                 |                  |                  |
-     |                 |                  |                  |
-+----+---+        +----+---+         +----+---+         +----+---+
-|  AS A  +--------+  AS B  +---------+  AS C  +---------+  AS D  |
-+----+---+        +----+---+         +----+---+         +----+---+
-     |                 |                  |                  |
-     |        F(C,D,P)-(src:P(D),dst:P(A))+<-----------------+
-     |                 |                  |                  |
-     |                 |                  |                  |
-     |                 |<-----------------+------------------+
-     |                 |      F(B,C,P)-(src:P(D),dst:P(A))   |
-     |                 |                  |                  |
-     |                 |                  |                  |
-     |<----------------+------------------+------------------+
-                   F(A,B,P)-(src:P(D),dst:P(A))
++------------------+------------------+------------------+   \
+|Route Announcement| Forwarding Path  |  Routing Policy  |... >Operation
++------------------+------------------+------------------+   /
++-----------------------------------------------------------+\
+|                        BGP Peering                        | |
++-----------------------------------------------------------+  >Topology
++-----------------------------------------------------------+ |
+|                      Link Statement                       | |
++-----------------------------------------------------------+/
 ~~~~~~~~~~~~~~~
-{: #figure2 title="Example of FC-BGP."}
+{: #figure2 title="Semantic Structure of FC."}
 
+The uniqueness of FC-based framework lies in FC semantic design, as shown in {{figure2}}, which encompasses two main types of information: topological information and operational information. This design makes FC not just a supplement to existing security mechanisms, but a fundamental primitive that supports construction of comprehensive security frameworks.
 
-Consider an illustrative example using the four-AS topology shown in {{figure2}}. In this process, FC-BGP generates the corresponding FC and propagates to downstream ASes (e.g., adding it to the Path Attributes of the BGP updates), so that the receiving AS can validate the authenticity of the announcement. Suppose AS C receives a BGP announcement P(A): A->B->C from its neighbor B. If AS C decides to further advertise this path to its neighbor D based on its routing policy, it generates a FC F(C,D,P), propagates it  to AS D, and forwards the BGP update message to D.
+Topological Information: Topological information forms core of FC and is divided into two layers:
 
-When AS D receives the route from C, it can determine the authenticity of the current AS path by verifying the list of FCs correctly reflects the AS path.
+1. Link Statement: FC expresses physical connections between ASes through a link statement, which records direct physical links such as fiber connections or dedicated lines. This information provides direct evidence of validity of BGP peering relationships. If there is no physical connection between two ASes, they should not establish a BGP peering relationship. The link statement ensures objectivity and verifiability of physical connections, eliminating routing announcements based on false connections.
 
-# Forwarding Validation
+2. BGP Peering: Based on physical connection states, FC further captures logical BGP peering relationships established over these connections. By including previous hop, current AS, and next hop, FC describes inter-AS routing relationships in detail, enabling fine-grained, topology-based chained validation. This helps verify whether an AS's routing announcement aligns with its BGP peering relationship, ensuring that AS has genuinely learned route information from a neighboring AS, preventing route hijacking attacks.
 
-AS shown in {{figure2}}, to enable forwarding validation, ASes need to announce the traffic-FCs binding relationships. Specifically, suppose AS D confirms that the AS-path C->B->A for reaching prefix P(A) is legitimate, it binds the traffic (src:P(D),dst:P(A)) (where P(D) is the prefix owned by AS D) with the FC list F(C,D,P)-F(B,C,P)-F(A,B,P), and then publicly announces the binding relationship.
+Operational Information: FC encapsulates rich operational semantics that describe specific actions performed by an AS in routing and forwarding processes. It mainly includes the following:
 
-Upon receiving the relationship, other ASes can build traffic filtering rules based on the relationship to enable forwarding validation on dataplane. For instance, by interpreting the binding relationship produced by AS D, AS C confirms that the traffic (src:P(D), dst:P(A)) shall be forwarded over the link L(CD), and AS B confirms that the traffic shall be forwarded on link L(BC). Network traffic violating these binding rules is considered to take unauthorized paths.
+1. Route Announcement: An AS announces its routing prefixes and path information to external peers. FC can represent these route announcements within directly connected hop range and provide verifiable commitments to global network, helping prevent route hijacking.
 
-To enable network-wide forwarding verification, these binding rules may be further broadcast globally (instead of just informing the ASes on the AS-path) so that off-path ASes can also discard unauthorized flows.
+2. Forwarding Path Designation: FC defines transmission path that packets should follow, which is critical for data plane security. By embedding forwarding path information, FC ensures that packets are forwarded as expected, preventing path manipulation or malicious redirection.
+
+3. Routing Policy: FC captures policies of an AS regarding how to select and propagate paths, ensuring the consistency of routing policies and helping to identify and prevent route leaks and configuration errors.
+
+By integrating topological and operational information, FC expresses behaviors ranging from AS level to global level. Each FC represents routing and forwarding actions that occur within directly connected hop range, and by linking multiple FCs, chained validation can be achieved across scope of multiple ASes. This mechanism ensures comprehensive verification of network operations, guaranteeing consistency and authenticity of information across entire network interaction range.
+
+In chain-based validation, FC is linked into a chain using cryptographic signatures, with each AS verifying the previous FC before appending its own information. This creates a trust chain that spans multiple ASes. This mechanism ensures end-to-end verification while maintaining decentralized nature of Internet. By leveraging FC as a foundational structure, the FC-based framework strengthens routing information and enhances security and reliability of network communication.
+
+# Security Mechanisms Based on FC
+
+By introducing universal verification primitive FC, FC-based security framework combines independence of hop-by-hop forwarding with end-to-end security verification capability. Below are some security mechanisms and application scenarios enabled by FC:
+
+1. Routing Verification of Incremental Deployment: FC supports gradual deployment, allowing verification within networks that are not fully deployed. Through hop-by-hop and chain-based verification, FC adapts to partial deployment scenarios, reducing overhead of global verification.
+
+2. Consistency Between Control Plane and Data Plane: By combining BGP peering relationships with physical link information, FC significantly enhances data plane security. For instance, embedding forwarding path information within FC ensures that packets are forwarded along expected routes, preventing path manipulation or malicious detours.
+
+3. Route Leak Prevention and Policy Transparency: FC's operational information allows ASes to define and validate their routing policies, effectively preventing route leaks caused by misconfigurations or malicious policy violations.
+
+4. Dynamic Defense Mechanisms Against Emerging Attacks: FC's flexibility allows it to adjust to new attack scenarios, dynamically optimizing granularity of FC information to address evolving security challenges.
 
 # Security Considerations
 
-## Security Guarantees
-
-When FC-BGP used in conjunction with origin validation, the following security guarantees can be achieved:
-
-1. The source AS in a route announcement is authorized.
-2. FC-BGP speakers on the AS-Path are authorized to propagate the route announcements.
-3. The forwarding path of packets is consistent with the routing path announced by the FC-BGP speakers.
-
-FC-BGP is designed to enhance the security of control plane routing and dataplane forwarding in the Internet at the network layer. Specifically, FC-BGP allows an AS to independently prove its BGP routing decisions with publicly verifiable cryptography commitments, based on which any on-path AS can verify the authenticity of a BGP path; meanwhile FC-BGP ensures the consistency between the control plane and dataplane, i.e., the network traffic shall take the forwarding path that is consistent with the control plane routing decisions, or otherwise be discarded. More crucially, the above security guarantees offered by FC-BGP are not binary, i.e., secure or non-secure. Instead, the security benefits are strictly monotonically increasing as the deployment rate of FC-BGP (i.e., the percentage of ASes that are upgraded to support FC-BGP) increases.
+This document has no security risks to consider.
 
 # IANA Considerations
 
