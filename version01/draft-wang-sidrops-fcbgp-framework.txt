@@ -5,10 +5,12 @@
 SIDR Operations                                                    K. Xu
 Internet-Draft                                                   X. Wang
 Intended status: Informational                                    Z. liu
-Expires: 30 August 2025                                            L. Qi
+Expires: 11 September 2025                                         L. Qi
                                                                    J. Wu
                                                      Tsinghua University
-                                                        26 February 2025
+                                                                  Q. Zou
+                                                 Zhongguancun Laboratory
+                                                           10 March 2025
 
 
                  Framework of Forwarding Commitment BGP
@@ -51,7 +53,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 30 August 2025.
+   This Internet-Draft will expire on 11 September 2025.
 
 Copyright Notice
 
@@ -380,3 +382,10 @@ Authors' Addresses
    Beijing
    China
    Email: jianping@cernet.edu.cn
+
+
+   Qian Zou
+   Zhongguancun Laboratory
+   Beijing
+   China
+   Email: zouqian@zgclab.edu.cn
