@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-03-09T00:37:56.177065+00:00",
+  "timestamp": "2025-03-11T00:43:24.972784+00:00",
   "repo": "FCBGP/framework-of-fcbgp",
   "labels": [
     {
@@ -75,6 +75,34 @@
       "mergedBy": "FCBGP",
       "mergeCommit": {
         "oid": "86d386609b29e1fd4b153417de1dedaa855baacf"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 2,
+      "id": "PR_kwDONnR4js6N8UNd",
+      "title": "Version01",
+      "url": "https://github.com/FCBGP/framework-of-fcbgp/pull/2",
+      "state": "MERGED",
+      "author": "zq-star",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-03-10T07:06:13Z",
+      "updatedAt": "2025-03-10T07:09:02Z",
+      "baseRepository": "FCBGP/framework-of-fcbgp",
+      "baseRefName": "main",
+      "baseRefOid": "6ac7cd9499357457bab26f82f41a7220f1b7fb03",
+      "headRepository": "FCBGP/framework-of-fcbgp",
+      "headRefName": "version01",
+      "headRefOid": "6c8cdfecb03afb9c256301551753adfebaafc219",
+      "closedAt": "2025-03-10T07:09:02Z",
+      "mergedAt": "2025-03-10T07:09:02Z",
+      "mergedBy": "zq-star",
+      "mergeCommit": {
+        "oid": "b51ff275104dd4daf41e076d8675ff446efb1524"
       },
       "comments": [],
       "reviews": []
