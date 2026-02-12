@@ -2,19 +2,19 @@
 
 
 
-SIDR Operations                                                    K. Xu
-Internet-Draft                                                   X. Wang
-Intended status: Informational                                    Z. liu
-Expires: 11 September 2025                                         L. Qi
-                                                                   J. Wu
+IDR Working Group                                                X. Wang
+Internet-Draft                                       Tsinghua University
+Intended status: Informational                                    Q. Zou
+Expires: 16 August 2026                          Zhongguancun Laboratory
+                                                                   K. Xu
+                                                                  Z. liu
+                                                                   L. Qi
                                                      Tsinghua University
-                                                                  Q. Zou
-                                                 Zhongguancun Laboratory
-                                                           10 March 2025
+                                                        12 February 2026
 
 
                  Framework of Forwarding Commitment BGP
-               draft-wang-sidrops-fcbgp-framework-latest
+                 draft-wang-idr-fcbgp-framework-latest
 
 Abstract
 
@@ -53,11 +53,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 11 September 2025.
+   This Internet-Draft will expire on 16 August 2026.
 
 Copyright Notice
 
-   Copyright (c) 2025 IETF Trust and the persons identified as the
+   Copyright (c) 2026 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -349,18 +349,25 @@ Acknowledgments
 
 Authors' Addresses
 
-   Ke Xu
-   Tsinghua University
-   Beijing
-   China
-   Email: xuke@tsinghua.edu.cn
-
-
    Xiaoliang Wang
    Tsinghua University
    Beijing
    China
    Email: wangxiaoliang0623@foxmail.com
+
+
+   Qian Zou
+   Zhongguancun Laboratory
+   Beijing
+   China
+   Email: zouqian@zgclab.edu.cn
+
+
+   Ke Xu
+   Tsinghua University
+   Beijing
+   China
+   Email: xuke@tsinghua.edu.cn
 
 
    Zhuotao liu
@@ -375,17 +382,3 @@ Authors' Addresses
    Beijing
    China
    Email: qli01@tsinghua.edu.cn
-
-
-   Jianping Wu
-   Tsinghua University
-   Beijing
-   China
-   Email: jianping@cernet.edu.cn
-
-
-   Qian Zou
-   Zhongguancun Laboratory
-   Beijing
-   China
-   Email: zouqian@zgclab.edu.cn
