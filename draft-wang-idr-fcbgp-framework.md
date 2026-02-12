@@ -3,31 +3,37 @@ title: "Framework of Forwarding Commitment BGP"
 abbrev: "fcbgp-framework"
 category: info
 
-docname: draft-wang-sidrops-fcbgp-framework-latest
+docname: draft-wang-idr-fcbgp-framework-latest
 submissiontype: IETF  # also: "independent", "IAB", or "IRTF"
 number:
 date:
 consensus: true
 v: 3
 area: ""
-workgroup: "SIDR Operations"
+workgroup: "IDR Working Group"
 keyword:
  - BGP Security
  - Inter-Domain Forwarding
 
 author:
   -
-      fullname: Ke Xu
-      org: Tsinghua University
-      city: Beijing
-      country: China
-      email: xuke@tsinghua.edu.cn
-  -
       fullname: Xiaoliang Wang
       org: Tsinghua University
       city: Beijing
       country: China
       email: wangxiaoliang0623@foxmail.com
+  -
+      fullname: Qian Zou
+      org: Zhongguancun Laboratory
+      city: Beijing
+      country: China
+      email: zouqian@zgclab.edu.cn
+  -
+      fullname: Ke Xu
+      org: Tsinghua University
+      city: Beijing
+      country: China
+      email: xuke@tsinghua.edu.cn
   -
       fullname: Zhuotao liu
       org: Tsinghua University
@@ -46,12 +52,6 @@ author:
       city: Beijing
       country: China
       email: jianping@cernet.edu.cn
-  -
-      fullname: Qian Zou
-      org: Zhongguancun Laboratory
-      city: Beijing
-      country: China
-      email: zouqian@zgclab.edu.cn
 
 normative:
   RFC4271: # TEST
