@@ -46,12 +46,6 @@ author:
       city: Beijing
       country: China
       email: qli01@tsinghua.edu.cn
-  -
-      fullname: Jianping Wu
-      org: Tsinghua University
-      city: Beijing
-      country: China
-      email: jianping@cernet.edu.cn
 
 normative:
   RFC4271: # TEST
